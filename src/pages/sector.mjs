@@ -74,7 +74,7 @@ export const flowEnd = steps => {
 // A request run, built the same way on every Actuathron site: three lanes (customer, Crewola, your team), a
 // bold one-to-three-word label and an icon per step, phase headers, a checkpoint marker wherever your team
 // approves, and an example conversation. Every word is in the HTML, so it reads the same without JavaScript, to
-// screen readers and to crawlers; styles.css plays it in order and site.js only starts, pauses and replays it.
+// screen readers and to crawlers; styles.css plays it in order on a loop and site.js only starts and pauses it.
 // The layout is fixed from first paint: playing only changes opacity and transform, never a filter or a scale on text. No style
 // attributes (CSP style-src 'self'): timing comes from the sN/pK classes below.
 const LANE_KEYS = [['customer', 'Customer'], ['agent', SITE.name], ['team', 'Your team']];
@@ -84,8 +84,8 @@ export const actorIcon = (lane, cls = 'run-ic run-actor-ic') => icon(`a-${lane}`
 // together like a product video. Each shot is one moment of the enquiry, a big title line and a mock app screen:
 // the shopper's message, the record check, the approval, the hand-off, staff confirming, and an end card with the
 // summary. Every word is in the HTML, so the film reads as a storyboard without JavaScript, with reduced motion, to
-// screen readers and to crawlers; styles.css plays the shots in one fixed frame and site.js only starts, pauses and
-// replays it. No style attributes (CSP style-src 'self'): each shot's place comes from its kN class.
+// screen readers and to crawlers; styles.css plays the shots in one fixed frame on a loop, with no controls, and
+// site.js only starts and pauses it. No style attributes (CSP style-src 'self'): each shot's place comes from its kN class.
 // Steps fall into shots by what they do, so the shots follow the step data and every step appears exactly once.
 const SHOT_OF = { inbox: 0, tag: 1, search: 1, rule: 1, pen: 2, handoff: 3, clock: 3, check: 4, send: 4, archive: 5 };
 export const FILM_SHOTS = 6;
@@ -145,7 +145,7 @@ export function film(scene, { compact = false } = {}) {
   const stepsOf = sh => `<ol class="shot-steps" start="${sh[0].i + 1}">${sh.map(st => `<li class="film-step lane-${st.actor}">${actorIcon(st.actor, 'f-ic')}<span><span class="f-num">${pad(st.i + 1)}</span> ${esc(st.label)}<span class="visually-hidden">, ${ACTOR[st.actor].toLowerCase()} (${esc(st.who)})${st.approval ? ', your team approves' : ''}</span></span></li>`).join('')}</ol>`;
   return `<div class="film${compact ? ' film-compact' : ''}" role="group" aria-label="Example film: ${esc(scene.tab)}">
 <div class="film-frame"><ol class="film-shots">${shots.map((sh, k) => `<li class="shot k${k} shot-${['message', 'check', 'approve', 'handoff', 'confirm', 'end'][k]}"><div class="shot-cam ${CAM[k]}"><p class="shot-title"><span class="visually-hidden">Scene ${k + 1} of ${FILM_SHOTS}: </span>${esc(titles[k])}</p><div class="shot-ui">${ui[k](sh)}</div>${stepsOf(sh)}</div></li>`).join('')}</ol></div>
-<div class="film-foot"><p class="film-summary">${esc(flowSummary(steps))}</p><span class="film-ctl"><button type="button" class="film-pause flow-ctl" aria-pressed="false">Pause</button><button type="button" class="film-replay flow-ctl">Replay</button></span></div>
+<div class="film-foot"><p class="film-summary">${esc(flowSummary(steps))}</p></div>
 </div>`;
 }
 export const legend = `<p class="run-legend">${LANE_KEYS.map(([key, name]) => `<span class="lane-key lane-${key}">${actorIcon(key)}${esc(name)}</span>`).join(' ')} ${checkpoint}</p>`;

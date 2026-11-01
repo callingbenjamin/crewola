@@ -406,8 +406,6 @@ ol.steps{list-style:none;margin:0;padding:0}
 .scene{grid-area:1/1;min-width:0;transition:opacity .3s ease,visibility 0s}
 .scene:not(.is-active){opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s .3s}
 .demo-section,.film,.hero-card,.wf-card{overflow-anchor:none}
-.flow-ctl{visibility:hidden}
-.flow-on .flow-ctl{visibility:visible}
 .demo-actions{margin-top:30px;padding-top:18px;border-top:1px solid #ffffff20}
 
 
@@ -503,10 +501,6 @@ ol.steps{list-style:none;margin:0;padding:0}
 .film-end{margin:0;font-size:11.5px;font-weight:650;line-height:1.4;color:var(--ink)}
 .film-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 14px;margin-top:12px}
 .film-summary{margin:0;font-size:13px;font-weight:600;color:var(--ink)}
-.film-ctl{display:flex;gap:8px}
-.film-ctl button{background:transparent;color:var(--ink);border:1px solid #f5f2eb4d;border-radius:999px;padding:4px 13px;font-size:11px;line-height:1.5;min-width:5.2em}
-.film-ctl button:hover{border-color:var(--signal)}
-.film-ctl button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .k0{--k:0}.k1{--k:1}.k2{--k:2}.k3{--k:3}.k4{--k:4}.k5{--k:5}
 
 /* Storyboard on phones: a swipeable strip of frames, one screen tall, every line still in the page. */
@@ -594,10 +588,12 @@ ol.steps{list-style:none;margin:0;padding:0}
   .cam-at-approve{transform-origin:70% 72%}
 }
 
-/* One loop = 6 shots, so one shot is 16.67% of it. Shots cross-fade in over 1.5% (about .3s) on top of the last. */
+/* One loop = 6 shots, so one shot is 16.67% of it. Shots cross-fade in over 1.5% (about .3s) on top of the last.
+   The loop itself is a clean cut: the end card holds to the last moment and drops out at once, over the first shot,
+   which is already showing underneath (f-shot0 comes back at 98.4%), so the frame is never blank and never fades. */
 @keyframes f-shot{0%{opacity:0}1.5%,18.4%{opacity:1}18.5%,100%{opacity:0}}
 @keyframes f-shot0{0%,18.4%{opacity:1}18.5%,98.3%{opacity:0}98.4%,100%{opacity:1}}
-@keyframes f-shot5{0%{opacity:0}1.5%,16.67%{opacity:1}18.2%,100%{opacity:0}}
+@keyframes f-shot5{0%{opacity:0}1.5%{opacity:1;animation-timing-function:step-end}16.6667%,100%{opacity:0}}
 @keyframes f-push{0%{transform:translate3d(0,0,0)}18.4%,100%{transform:translate3d(-1.2%,-.6%,0)}}
 @keyframes f-pan{0%{transform:translateX(1.6%)}18.4%,100%{transform:translateX(-1.6%)}}
 @keyframes f-tcut{0%,7.9%{opacity:1}8%,100%{opacity:0}}
