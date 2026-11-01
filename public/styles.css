@@ -86,10 +86,7 @@ h3{font:500 27px/1.3 var(--font);letter-spacing:-.6px;margin:15px 0}
 .handoff .number{grid-row:span 2;padding-top:2px}
 .handoff strong{font-weight:500;color:#fff}
 .hero-card figcaption{font-size:10px;color:#cfccc6;margin-top:10px}
-.hero-foot{position:absolute;bottom:26px;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 48px;font-size:10px;color:#cfccc6;gap:15px}
-.video-control{background:#ffffff10;backdrop-filter:blur(10px);border:1px solid #ffffff40;border-radius:30px;color:#fff;font-size:11px;padding:9px 13px;white-space:nowrap}
-.video-control::before{content:'Ⅱ' / '';margin-right:.7em}
-.video-control.is-paused::before{content:'▶' / ''}
+.hero-foot{position:absolute;bottom:26px;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 48px;font-size:10px;color:#cfccc6;gap:15px;min-height:38px}
 
 /* Sections */
 section:not(.hero){padding:100px 0}
@@ -251,7 +248,7 @@ section.page{padding:190px 0 110px}
   .hero-wash{background:linear-gradient(90deg,#20292ce0,#20292cb8),linear-gradient(0deg,var(--bg),transparent 45%)}
   .hero-foot{padding:0 22px;font-size:9px;bottom:22px}
   .hero-foot>span{max-width:180px}
-  .video-control{font-size:9px;padding:9px 11px}
+  .hero-foot{min-height:35px}
   .actions{margin:22px 0 17px}
   .btn{font-size:12px;padding:13px 17px}
   .promise-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:10px;padding:24px 0}

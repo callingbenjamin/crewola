@@ -191,7 +191,7 @@ export function sectorPage(d, guides = []) {
     for (const st of s.steps) if (!ACTOR[st.actor] || !st.status || !st.does || !st.label || st.label.split(' ').length > 3 || !ICON_PATHS[st.icon] || !(st.stage >= 1 && st.stage <= STAGES.length)) throw new Error(`${d.key}: scene "${s.tab}" has an incomplete step`);
   }
   const main = `${iconSprite()}<section class="hero" aria-labelledby="headline">
-<div class="hero-media" aria-hidden="true">${posterPicture(d.key, { sizes: HERO_SIZES, attrs: 'fetchpriority="high"' })}<video id="hero-video" muted loop playsinline preload="metadata" tabindex="-1"><source src="${asset(`${media}/hero.mp4`)}" type="video/mp4"></video></div>
+<div class="hero-media" aria-hidden="true">${posterPicture(d.key, { sizes: HERO_SIZES, attrs: 'fetchpriority="high"' })}<video id="hero-video" muted loop playsinline preload="metadata"><source src="${asset(`${media}/hero.mp4`)}" type="video/mp4"></video></div>
 <div class="hero-wash" aria-hidden="true"></div>
 <div class="wrap hero-content">
 <div class="hero-copy">
@@ -206,7 +206,7 @@ ${film(first, { compact: true })}
 <figcaption>Illustrative example · synthetic data</figcaption>
 </figure>
 </div>
-<div class="hero-foot"><span>${esc(d.hero.foot)}</span><button type="button" class="video-control" id="video-toggle">Pause video</button></div>
+<div class="hero-foot"><span>${esc(d.hero.foot)}</span></div>
 </section>
 <div class="wrap">
 ${promiseStrip()}
