@@ -627,7 +627,7 @@ ol.steps{list-style:none;margin:0;padding:0}
 /* Home headline: one sentence, sized to its column so it always sets in two balanced lines (1280 and 390 alike).
    Its two-line height is reserved up front, so a font swap cannot shift the page. */
 .hero-copy:has(#headline){container-type:inline-size}
-#headline{font-size:clamp(19px,6.6cqw,60px);line-height:1.1;letter-spacing:-.035em;min-height:2.2em;text-wrap:balance}
+#headline{font-size:clamp(16px,6.3cqw,60px);line-height:1.1;letter-spacing:-.035em;min-height:2.2em;text-wrap:balance}
 #headline em{display:inline}
 /* The headline accent: the mark's amber as text colour on the dark hero (the only accent; no fade, no motion). */
 #headline .h1-accent{color:#F2B544}

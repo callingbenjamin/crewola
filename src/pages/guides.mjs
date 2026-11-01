@@ -19,14 +19,14 @@ ${(s.paragraphs ?? []).map(p => `<p>${esc(p)}</p>`).join('\n')}${s.list ? `\n<${
 
 export const GUIDES_INDEX = {
   title: 'Guides',
-  description: `${SITE.name} guides are practical how-tos and definitions for handling service calls and quote requests at HVAC companies and other home-service businesses: how to stop them getting missed, and how to measure the results.`,
+  description: `${SITE.name} guides are practical how-tos and definitions for handling service calls and quote requests at home service companies, starting with HVAC: how to stop them getting missed, and how to measure the results.`,
   scope: {
-    covers: 'Handling HVAC service calls, quote requests and follow-ups at home-service companies, and measuring the results.',
+    covers: 'Handling service calls, quote requests and follow-ups at home service companies, starting with HVAC, and measuring the results.',
     excludes: 'Product documentation, prices and customer case studies.',
   },
   summary: {
     question: 'What are these guides?',
-    answer: `${SITE.name} guides are practical how-tos and definitions for handling service calls and quote requests at HVAC companies and other home-service businesses: how to stop them getting missed, and how to measure the results. Each one stands on its own and links to the example workflow on the ${SITE.name} home page.`,
+    answer: `${SITE.name} guides are practical how-tos and definitions for handling service calls and quote requests at home service companies, starting with HVAC: how to stop them getting missed, and how to measure the results. Each one stands on its own and links to the example workflow on the ${SITE.name} home page.`,
     takeaways: [
       'Guides you can use whether or not you work with us.',
       'Plain definitions of the terms we use.',

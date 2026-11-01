@@ -18,7 +18,7 @@
     ]
   },
   "scope": {
-    "covers": "Defining and measuring staff minutes per resolved request, with the HVAC and home-services variant.",
+    "covers": "Defining and measuring staff minutes per resolved request, with the home service variant.",
     "excludes": "Response-time and satisfaction metrics, and benchmark figures; none are published here.",
     "instead": "Writing the rules that decide what software may do on its own is covered in the guide to approval rules.",
     "insteadLabel": "Use instead"
@@ -61,12 +61,12 @@
     {
       "heading": "How does it apply at an HVAC company?",
       "paragraphs": [
-        "The same idea adapts to each workflow. For HVAC and other home-service enquiries, the suggested measure is enquiries reaching a confirmed next step, read next to the staff effort needed to get there."
+        "The same idea adapts to each workflow. For home service enquiries, starting with HVAC, the suggested measure is enquiries reaching a confirmed next step, read next to the staff effort needed to get there."
       ],
       "links": [
         {
           "href": "/#example",
-          "label": "HVAC and home services: enquiries reaching a confirmed next step"
+          "label": "Home service companies: enquiries reaching a confirmed next step"
         }
       ]
     },

@@ -2,15 +2,15 @@
 export const SITE = {
   name: 'Crewola',
   url: 'https://crewola.com',
-  // Enquiries go to the Crewola sales inbox: Crewola is Actuathron's service for HVAC and home-service companies.
+  // Enquiries go to the Crewola sales inbox: Crewola is Actuathron's service for home service companies.
   email: 'sales@crewola.com',
   // The one-sentence definition. It is the first paragraph of the home page, its meta description,
   // the Organization and Service descriptions and the first line of llms.txt, word for word.
-  description: 'Crewola is a managed workflow service for HVAC companies and other home-service trades that turns heating and cooling enquiries, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.',
+  description: 'Crewola is a managed workflow service for home service companies, starting with HVAC, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.',
   // The plain-words category used after "|" in page titles.
-  category: 'HVAC enquiry handling for home-service companies',
+  category: 'Enquiry handling for home service companies',
   // The enterprise offer. There is no personal or consumer plan.
-  offer: 'Crewola for HVAC and home-service companies',
+  offer: 'Crewola for home service companies',
   // The company that runs the service.
   parent: { name: 'Actuathron', url: 'https://actuathron.com/' },
   // The one service, rendered as the home page from src/content/sectors/<sector>.json.

@@ -78,7 +78,7 @@ export function header({ label, links }) {
 export function footer({ current, footage = [] }) {
   const credits = footage.map(f => `${esc(f.credit)} · <a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Pexels</a>`).join('; ');
   return `<footer class="footer"><div class="wrap">
-<div class="foot-top"><a class="brand" href="/" aria-label="${SITE.name} home">${LOGO}</a><nav class="foot-links" aria-label="Footer"><a href="/"${current === 'home' ? ' aria-current="page"' : ''}>HVAC and home services</a><a href="/guides"${current === 'guides' ? ' aria-current="page"' : ''}>Guides</a><a href="/privacy"${current === 'privacy' ? ' aria-current="page"' : ''}>Privacy</a></nav></div>
+<div class="foot-top"><a class="brand" href="/" aria-label="${SITE.name} home">${LOGO}</a><nav class="foot-links" aria-label="Footer"><a href="/"${current === 'home' ? ' aria-current="page"' : ''}>Home service companies</a><a href="/guides"${current === 'guides' ? ' aria-current="page"' : ''}>Guides</a><a href="/privacy"${current === 'privacy' ? ' aria-current="page"' : ''}>Privacy</a></nav></div>
 <div class="foot-bottom"><span>Service calls and quote requests, followed through with your team in control. <a href="mailto:${SITE.email}">${SITE.email}</a></span><span class="governance">Built and run by <a href="${SITE.parent.url}" rel="noopener">${SITE.parent.name}</a>.</span><span class="copyright">© ${new Date().getFullYear()} ${SITE.name}</span></div>${footage.length ? `\n<div class="footage-note">Stock footage: ${credits}</div>` : ''}
 </div></footer>`;
 }
