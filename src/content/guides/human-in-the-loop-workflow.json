@@ -3,6 +3,7 @@
   "kind": "Guide",
   "topic": "Workflow rules",
   "title": "What is a human-in-the-loop workflow? How it keeps a person in control",
+  "titleTag": "What is human-in-the-loop?",
   "shortTitle": "What is a human-in-the-loop workflow?",
   "description": "A human-in-the-loop workflow is one where software gathers requests and prepares the next step, and a named person confirms every action that matters before it happens.",
   "published": "2026-10-31",

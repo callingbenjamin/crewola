@@ -23,7 +23,8 @@ export const arrow = ARROW;
 export function page({ path, title, description, image, imageAlt, bodyClass = '', header, main, footer, config, jsonLd, ogType = 'website', noindex = false }) {
   if (!imageAlt) throw new Error(`${path}: page() needs imageAlt for its share image`);
   const url = SITE.url + path;
-  const shareTitle = title.split(' — ')[0] === SITE.name ? title.replace(' — ', ': ') : title.split(' — ')[0];
+  // Titles arrive finished ('{Page} · Crewola by Actuathron', or the homepage line); share previews use the same text.
+  const shareTitle = title;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -34,7 +35,7 @@ export function page({ path, title, description, image, imageAlt, bodyClass = ''
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}
 <meta name="theme-color" content="#20292C">
 <meta property="og:type" content="${ogType}">
-<meta property="og:site_name" content="${SITE.name}">
+<meta property="og:site_name" content="${esc(SITE.titleBrand)}">
 <meta property="og:title" content="${esc(shareTitle)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${url}">

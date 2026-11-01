@@ -37,7 +37,7 @@ export const GUIDES_INDEX = {
 
 export function guidesIndexPage(guides) {
   const path = '/guides';
-  const title = `Workflow guides — ${SITE.name} | Definitions and how-tos`;
+  const title = `Workflow guides · ${SITE.titleBrand}`;
   const crumbs = [{ name: SITE.name, path: '/' }, { name: 'Guides', path }];
   const body = `${crumbTrail(crumbs)}
 <div class="eyebrow">Guides</div>
@@ -68,7 +68,8 @@ export function guidePage(g) {
   const path = `/guides/${g.slug}`;
   if (g.sector && g.sector !== SITE.sector) throw new Error(`${g.slug}: sector "${g.sector}" is not ${SITE.sector}`);
   const cta = '/#start';
-  const title = `${g.title} — ${SITE.name} | ${g.kind}`;
+  // Page part is the short title (titleTag when that is still too long) so the whole title stays near 60 characters.
+  const title = `${g.titleTag || g.shortTitle} · ${SITE.titleBrand}`;
   const crumbs = [{ name: SITE.name, path: '/' }, { name: 'Guides', path: '/guides' }, { name: g.shortTitle, path }];
   const updated = g.updated !== g.published ? ` · Updated <time datetime="${g.updated}">${fmtDate(g.updated)}</time>` : '';
   const body = `${crumbTrail(crumbs)}
