@@ -108,6 +108,10 @@ for (const f of files.filter(f => /\.(css|js|xml|txt)$/.test(f) && !f.endsWith('
   for (const w of misspellings(body)) problems.push(`${f}: write "Lucidrail", not "${w}"`);
   for (const c of providerClaims(body)) problems.push(`${f}: describes Lucidrail as a service provider ("${c.trim()}")`);
 }
+// Footage credits live in CREDITS.md only: no built page or text file names the stock library or says 'stock footage'.
+for (const f of files.filter(f => /\.(html|css|js|json|xml|txt|webmanifest)$/.test(f) && !f.endsWith('OFL.txt'))) {
+  if (/pexels|stock footage/i.test(readFileSync(f, 'utf8'))) problems.push(`${f}: footage credit belongs in CREDITS.md, not on the site`);
+}
 // Retired terms: no file name or text file in the built site may mention dental or a pilot.
 for (const f of files) {
   for (const w of retiredTerms(f)) problems.push(`${f}: file name mentions a retired term ("${w}")`);
