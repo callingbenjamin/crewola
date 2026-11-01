@@ -125,6 +125,18 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
   }
   if (/film-(pause|replay|ctl)|flow-ctl/.test(html)) problems.push(`${f}: leftover film control markup`);
 }
+// Hero video has no controls: the background video is muted, loops and plays inline, with no controls attribute and
+// nothing focusable in the hero media or the hero foot; no trace of the old Pause/Play button is left anywhere.
+for (const f of files.filter(f => /\.(html|css|js)$/.test(f))) {
+  const text = readFileSync(f, 'utf8');
+  if (/video-control|video-toggle|(Pause|Play) video/.test(text)) problems.push(`${f}: leftover hero video control`);
+  if (!f.endsWith('.html')) continue;
+  const media = text.match(/<div class="hero-media"[\s\S]*?<\/div>/)?.[0];
+  const foot = text.match(/<div class="hero-foot">[\s\S]*?<\/div>/)?.[0];
+  for (const part of [media, foot]) if (part && /<(button|a|input|select|textarea|summary)\b|role="button"|tabindex=/.test(part)) problems.push(`${f}: the hero has a control or focusable element`);
+  const video = media?.match(/<video\b[^>]*>/)?.[0];
+  if (video && (!/ muted\b/.test(video) || !/ loop\b/.test(video) || !/ playsinline\b/.test(video) || /\bcontrols\b/.test(video))) problems.push(`${f}: the hero video must be muted, loop, playsinline and have no controls`);
+}
 // Retired terms: no file name or text file in the built site may mention dental or a pilot.
 for (const f of files) {
   for (const w of retiredTerms(f)) problems.push(`${f}: file name mentions a retired term ("${w}")`);
