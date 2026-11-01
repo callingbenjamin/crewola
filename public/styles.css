@@ -187,8 +187,6 @@ section.faq{padding-top:10px}
 .foot-links a:hover,.foot-links a[aria-current]{color:#fff}
 .foot-links a[aria-current]{text-decoration:underline;text-underline-offset:5px}
 .foot-bottom{margin-top:32px;font-size:10px;color:#a3a09a;align-items:start}
-.footage-note{font-size:9px;color:#a3a09a;margin-top:20px}
-.footage-note a{text-decoration:underline}
 .copyright{white-space:nowrap}
 .governance a{text-decoration:underline;text-underline-offset:3px}
 

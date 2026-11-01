@@ -306,7 +306,7 @@ ${faqList(faq)}
           ]),
     description: d.description,
     image: '/og/home.png',
-    imageAlt: `${SITE.name}: ${d.hero.headline.join(' ')} Set over a still from the page's stock footage of an indoor air-conditioning unit.`,
+    imageAlt: `${SITE.name}: ${d.hero.headline.join(' ')} Set over a still of an indoor air-conditioning unit.`,
     bodyClass: d.key,
     header: header({
       links: [
@@ -317,7 +317,7 @@ ${faqList(faq)}
       ],
     }),
     main,
-    footer: footer({ current: 'home', footage: [d.footage] }),
+    footer: footer({ current: 'home' }),
     config: {
       key: d.key,
       name: SITE.name,
