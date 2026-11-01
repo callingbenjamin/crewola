@@ -1,6 +1,6 @@
 # Crewola
 
-Website for **crewola.com**. Crewola is a managed workflow service for HVAC companies and other home-service trades (plumbing, electrical, roofing) that turns heating and cooling enquiries, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control. Pricing and dispatch always need human approval. Built and run by [Actuathron](https://actuathron.com/).
+Website for **crewola.com**. Crewola is a managed workflow service for home service companies, starting with HVAC and also covering plumbing, electrical and roofing, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control. Pricing and dispatch always need human approval. Built and run by [Actuathron](https://actuathron.com/).
 
 | Page | URL |
 | --- | --- |

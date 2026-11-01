@@ -159,7 +159,7 @@ const flowRun = w => ({ tab: 'Workflow', people: w.people, titles: w.titles, ste
 // The home page, built from the one service file in src/content/sectors. Its "In short" answer links to the
 // guide whose `sector` is this service, if there is one.
 export const SITE_FAQ = [
-  { q: `Who is ${SITE.name} for?`, a: `HVAC companies and other home-service businesses whose office, dispatch and estimating teams handle a steady stream of service calls and quote requests. ${SITE.name} is for organisations only; there is no personal plan.` },
+  { q: `Who is ${SITE.name} for?`, a: `Home service companies, starting with HVAC, whose office, dispatch and estimating teams handle a steady stream of service calls and quote requests. ${SITE.name} is for organisations only; there is no personal plan.` },
   { q: 'Does it send messages to customers on its own?', a: 'No. Your team reviews external messages before they go out, and approval rules are agreed before anything goes live.' },
   { q: 'Who makes the decisions?', a: 'Your team does. Drafts and handoffs are prepared for review; pricing, dispatch, diagnosis, safety decisions, discounts, exceptions and anything outside the agreed scope stay with the people responsible. Pricing and dispatch always need human approval.' },
   { q: 'Can we use real customer data before going live?', a: 'No. Use synthetic examples for discovery. Live data is connected only after a separate review of access, privacy, security, retention and the applicable agreements.' },

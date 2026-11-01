@@ -1,24 +1,24 @@
 {
   "key": "home-services",
-  "name": "HVAC and home services",
+  "name": "Home service companies",
   "tagline": "Every service call. A clear next step.",
-  "description": "Crewola is a managed workflow service for HVAC companies and other home-service trades that turns heating and cooling enquiries, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.",
-  "topic": "HVAC enquiry handling",
-  "task": "turning HVAC enquiries into booked visits and quote requests",
+  "description": "Crewola is a managed workflow service for home service companies, starting with HVAC, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.",
+  "topic": "Home service enquiry handling",
+  "task": "turning home service enquiries into booked visits and quote requests",
   "hero": {
     "eyebrow": "FROM FIRST CALL TO A BOOKED VISIT",
     "headline": [
       "Your back office that never clocks out,",
-      "for HVAC companies."
+      "for home service companies."
     ],
-    "intro": "Crewola is a managed workflow service for HVAC companies and other home-service trades that turns heating and cooling enquiries, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.",
-    "audience": "For HVAC companies & their field teams",
+    "intro": "Crewola is a managed workflow service for home service companies, starting with HVAC, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.",
+    "audience": "For home service companies & their field teams",
     "foot": "For the crews who keep homes comfortable.",
     "accent": "never clocks out"
   },
   "summary": {
     "question": "What is Crewola?",
-    "answer": "Crewola is a managed workflow service for HVAC companies and other home-service trades that turns heating and cooling enquiries, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control. Every enquiry is captured and moved to a booked visit or a quote request, and pricing and dispatch always need human approval.",
+    "answer": "Crewola is a managed workflow service for home service companies, starting with HVAC, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control. Every enquiry is captured and moved to a booked visit or a quote request, and pricing and dispatch always need human approval.",
     "takeaways": [
       "Every enquiry is captured and moved to a booked visit or a quote request.",
       "Diagnosis, safety decisions, binding quotes, discounts and dispatch commitments stay with qualified or authorised staff.",

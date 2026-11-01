@@ -63,7 +63,7 @@ def write_ico(pngs, out):
 
 d = json.loads((ROOT / 'src/content/sectors/home-services.json').read_text())
 ACCENT = d['hero'].get('accent', '')
-shot(card('HVAC enquiry handling for home-service companies', d['hero']['headline'], ROOT / 'public/media/home-services/poster.jpg'),
+shot(card('Enquiry handling for home service companies', d['hero']['headline'], ROOT / 'public/media/home-services/poster.jpg'),
      ROOT / 'public/og/home.png', 1200, 630)
 shot(icon(180), ROOT / 'public/apple-touch-icon.png', 180, 180)
 for size in (192, 512):

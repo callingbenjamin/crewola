@@ -2,7 +2,7 @@
   "slug": "hvac-missed-service-calls",
   "sector": "home-services",
   "kind": "Guide",
-  "topic": "HVAC and home services",
+  "topic": "Home service companies",
   "title": "How do HVAC companies stop missing service calls?",
   "shortTitle": "Missed service calls",
   "description": "HVAC companies stop missing service calls by capturing every call, message and web form in one place, collecting the job details the first time, and tracking each enquiry until it has a visit booked by the dispatcher or a quote request with the estimator.",
@@ -71,7 +71,7 @@
     {
       "heading": "How does Crewola help?",
       "paragraphs": [
-        "Crewola runs this workflow for HVAC companies and other home-service trades. It turns each enquiry into a visit request or quote request with the right details, checks your service-area and scheduling rules, and tracks the enquiry until its next step is confirmed. Pricing and dispatch always need human approval."
+        "Crewola runs this workflow for home service companies, starting with HVAC. It turns each enquiry into a visit request or quote request with the right details, checks your service-area and scheduling rules, and tracks the enquiry until its next step is confirmed. Pricing and dispatch always need human approval."
       ],
       "links": [
         {
@@ -102,7 +102,7 @@
   "related": [
     {
       "href": "/",
-      "label": "Crewola for HVAC and home-service companies"
+      "label": "Crewola for home service companies"
     },
     {
       "href": "/guides/approval-rules",
