@@ -68,11 +68,12 @@ ${footer}${config ? `\n<script id="config" type="application/json">${jsonBlock(c
 }
 
 // links: [{ href, label, button? }]
+// The lockup puts 'by Actuathron' after the logo as plain page text (not part of the logo SVG and not a link).
 export function header({ label, links }) {
   const items = links.map(l => l.button
     ? `<a class="btn" href="${l.href}">${esc(l.label)} ${ARROW}</a>`
     : `<a href="${l.href}">${esc(l.label)}</a>`).join('');
-  return `<header class="top"><div class="wrap nav"><a class="brand" href="/" aria-label="${SITE.name}${label ? ` ${esc(label)}` : ''} home">${LOGO}${label ? ` <small>${esc(label)}</small>` : ''}</a><nav class="desktop" aria-label="Main navigation">${items}</nav><details class="mobile"><summary>Menu</summary><nav aria-label="Mobile navigation">${items}</nav></details></div></header>`;
+  return `<header class="top"><div class="wrap nav"><div class="lockup"><a class="brand" href="/" aria-label="${SITE.name}${label ? ` ${esc(label)}` : ''} home">${LOGO}${label ? ` <small>${esc(label)}</small>` : ''}</a><span class="brand-by">by ${esc(SITE.parent.name)}</span></div><nav class="desktop" aria-label="Main navigation">${items}</nav><details class="mobile"><summary>Menu</summary><nav aria-label="Mobile navigation">${items}</nav></details></div></header>`;
 }
 
 // footage: [{ credit, url }] for the stock video credits shown on the page.
