@@ -24,33 +24,21 @@ const config = configEl ? JSON.parse(configEl.textContent) : null;
 
 // Request films: each card is a short product film of six shots cut together in one fixed frame. The shots and
 // every word are already in the HTML (a storyboard without JavaScript or with reduced motion); styles.css plays
-// them on a loop, and this only starts and pauses the CSS animations and replays a film from its first shot. A
-// film plays while a quarter of it is on screen, its scenario is the one shown, and the visitor has not paused it.
+// them on a loop, end card straight back to the first shot, and this only starts and pauses the CSS animations.
+// There are no controls: a film plays while a quarter of it is on screen, its scenario is the one shown and the
+// tab is visible, and pauses otherwise.
 const films = [...document.querySelectorAll('.film')];
-// Replay: the animations restart in place, on the first shot. The first shot is the resting state, so the frame
-// is never empty, and only the shots animate: the card, its frame and its height never change.
+// Switching scenario restarts that film in place, on the first shot. The first shot is the resting state, so the
+// frame is never empty, and only the shots animate: the card, its frame and its height never change.
 const restart = film => {
   film.classList.add('is-reset');
   void film.offsetWidth;
   film.classList.remove('is-reset');
 };
 const seen = new Set();
-const sync = film => film.classList.toggle('is-playing', seen.has(film) && !film.paused && !film.closest('.scene:not(.is-active)'));
+const sync = film => film.classList.toggle('is-playing', seen.has(film) && !document.hidden && !film.closest('.scene:not(.is-active)'));
 const syncAll = () => films.forEach(sync);
-films.forEach(film => {
-  const pause = film.querySelector('.film-pause');
-  film.querySelector('.film-replay').addEventListener('click', () => {
-    restart(film);
-    if (film.paused) pause.click();
-  });
-  pause.addEventListener('click', () => {
-    film.paused = !film.paused;
-    pause.textContent = film.paused ? 'Play' : 'Pause';
-    pause.setAttribute('aria-pressed', String(Boolean(film.paused)));
-    sync(film);
-  });
-});
-if (films.length && !motion.matches) document.documentElement.classList.add('flow-on'); // The controls were in the layout already, just invisible.
+if (films.length) document.addEventListener('visibilitychange', syncAll);
 if (!('IntersectionObserver' in window)) { films.forEach(f => seen.add(f)); syncAll(); }
 else {
   // Starts once a quarter of the film is on screen and pauses only when it has left the screen entirely, so a film

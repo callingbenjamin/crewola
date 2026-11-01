@@ -112,6 +112,14 @@ for (const f of files.filter(f => /\.(css|js|xml|txt)$/.test(f) && !f.endsWith('
 for (const f of files.filter(f => /\.(html|css|js|json|xml|txt|webmanifest)$/.test(f) && !f.endsWith('OFL.txt'))) {
   if (/pexels|stock footage/i.test(readFileSync(f, 'utf8'))) problems.push(`${f}: footage credit belongs in CREDITS.md, not on the site`);
 }
+// Films have no controls: no button, role=button, link, field or tabindex anywhere inside a film.
+for (const f of files.filter(f => f.endsWith('.html'))) {
+  const html = readFileSync(f, 'utf8');
+  for (const m of html.matchAll(/<div class="film[ "][\s\S]*?<div class="film-foot">[\s\S]*?<\/div>\n<\/div>/g)) {
+    if (/<(button|a|input|select|textarea|summary)\b|role="button"|tabindex=|film-(pause|replay|ctl)|flow-ctl/.test(m[0])) problems.push(`${f}: a film has a control or focusable element; films play on their own`);
+  }
+  if (/film-(pause|replay|ctl)|flow-ctl/.test(html)) problems.push(`${f}: leftover film control markup`);
+}
 // Retired terms: no file name or text file in the built site may mention dental or a pilot.
 for (const f of files) {
   for (const w of retiredTerms(f)) problems.push(`${f}: file name mentions a retired term ("${w}")`);
