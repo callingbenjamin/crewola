@@ -1,0 +1,125 @@
+{
+  "slug": "human-in-the-loop-workflow",
+  "kind": "Guide",
+  "topic": "Workflow rules",
+  "title": "What is a human-in-the-loop workflow? How it keeps a person in control",
+  "shortTitle": "What is a human-in-the-loop workflow?",
+  "description": "A human-in-the-loop workflow is one where software gathers requests and prepares the next step, and a named person confirms every action that matters before it happens.",
+  "published": "2026-10-31",
+  "updated": "2026-10-31",
+  "summary": {
+    "question": "What is a human-in-the-loop workflow?",
+    "answer": "A human-in-the-loop workflow is one where software gathers requests and prepares the next step, and a named person confirms every action that matters before it happens. The software does the routine work of sorting, drafting and following up; people keep the decisions and the final say on whether a request is done.",
+    "takeaways": [
+      "Software prepares; a named person confirms the actions that matter.",
+      "Agree in writing, before anything goes live, which steps wait for a person.",
+      "Review outgoing messages to customers before they are sent.",
+      "Count a request as done only when the person responsible confirms it, not when a draft exists.",
+      "Send anything outside the agreed rules to a named person, and record it."
+    ]
+  },
+  "scope": {
+    "covers": "What a human-in-the-loop workflow is, where the person sits in it, which steps should wait for them, and how to tell whether a request is really finished.",
+    "excludes": "Settings for a specific software product, legal or regulatory advice, and price figures.",
+    "instead": "Wording the rules that decide which steps wait for a person is covered in the guide to approval rules.",
+    "insteadLabel": "Use instead"
+  },
+  "sections": [
+    {
+      "heading": "What does human in the loop mean?",
+      "paragraphs": [
+        "It means a person stays inside the workflow at the points where a decision carries risk. Software handles the steps that are routine and checkable, and it stops and waits for a person at the steps you have agreed in advance.",
+        "The person is named for each step, for example the dispatcher, the estimator or the duty contact, so a waiting request always has someone who can move it on."
+      ]
+    },
+    {
+      "heading": "Where does the person sit in the workflow?",
+      "paragraphs": [
+        "Most request workflows have three stages, and the person's role is different in each."
+      ],
+      "list": [
+        "Gather the request: software brings requests from an approved source into one shared queue, so nothing sits in a single inbox.",
+        "Prepare the next step: software drafts a reply or a handoff using your approved information and rules.",
+        "Review and close: your team confirms the action and records whether the request was resolved."
+      ]
+    },
+    {
+      "heading": "Which steps should wait for a person?",
+      "paragraphs": [
+        "List the decisions software should never make on its own. Everything else can be prepared automatically within the agreed rules."
+      ],
+      "list": [
+        "Messages to customers before they go out.",
+        "Pricing, discounts and refunds.",
+        "Booking, changing or confirming anything on the customer's behalf.",
+        "Exceptions to your normal process.",
+        "Any legal, financial or safety judgement."
+      ],
+      "links": [
+        {
+          "href": "/guides/approval-rules",
+          "label": "How to write approval rules a reviewer can check"
+        }
+      ]
+    },
+    {
+      "heading": "When is a request actually done?",
+      "paragraphs": [
+        "A drafted reply is not a finished request. Agree what counts as completion, who confirms it and where that confirmation is recorded. Until then the request stays open and keeps its owner.",
+        "For example, a service call counts as done when the dispatcher confirms the technician and the arrival window, not when the customer is told someone will be in touch."
+      ],
+      "links": [
+        {
+          "href": "/guides/hvac-missed-service-calls",
+          "label": "How HVAC companies stop missing service calls"
+        }
+      ]
+    },
+    {
+      "heading": "What happens when a request does not fit the rules?",
+      "paragraphs": [
+        "It goes to a named person, and the handoff is recorded, so it is counted as an exception rather than lost. Reviewing those exceptions on a schedule shows which rules need to change."
+      ],
+      "links": [
+        {
+          "href": "/guides/workflow-exceptions",
+          "label": "What is an exception, and how to route and count it"
+        }
+      ]
+    },
+    {
+      "heading": "How does Crewola keep a person in the loop?",
+      "paragraphs": [
+        "Crewola runs the workflow so every service call or quote request gets a clear owner, a prepared next step and a follow-up until it is closed. Your team reviews external messages before they go out, approval rules are agreed before anything goes live, and Crewola does not book, change or confirm anything on its own."
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "What is a human-in-the-loop workflow?",
+      "a": "A workflow where software gathers requests and prepares the next step, and a named person confirms every action that matters before it happens."
+    },
+    {
+      "q": "Does human in the loop mean a person checks everything?",
+      "a": "No. A person confirms the steps you agreed carry risk, such as customer messages, pricing and exceptions. Routine sorting and drafting happen without waiting."
+    },
+    {
+      "q": "Who should be the person in the loop?",
+      "a": "The role that owns the decision, for example the dispatcher, the estimator or the duty contact, named for each step."
+    },
+    {
+      "q": "Does Crewola send messages to customers on its own?",
+      "a": "No. Your team reviews external messages before they go out."
+    }
+  ],
+  "related": [
+    {
+      "href": "/guides/approval-rules",
+      "label": "What are approval rules?"
+    },
+    {
+      "href": "/guides/workflow-exceptions",
+      "label": "What is an exception in a workflow?"
+    }
+  ]
+}

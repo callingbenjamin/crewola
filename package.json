@@ -1,0 +1,17 @@
+{
+  "name": "crewola",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs && npx --yes serve@14.2.4 dist -l 4321",
+    "check": "node build.mjs && node scripts/check.mjs && node scripts/test-middleware.mjs && node scripts/test-brand.mjs",
+    "test": "node scripts/test-middleware.mjs && node scripts/test-brand.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@vercel/functions": "3.10.3"
+  }
+}

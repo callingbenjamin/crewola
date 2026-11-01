@@ -1,0 +1,105 @@
+{
+  "slug": "workflow-exceptions",
+  "kind": "Glossary",
+  "topic": "Workflow rules",
+  "title": "What is an exception in a workflow? How to route and count them",
+  "shortTitle": "What is an exception?",
+  "description": "An exception is a request the agreed approval rules do not let software handle on its own, so it goes to a named person to decide.",
+  "published": "2026-10-31",
+  "updated": "2026-10-31",
+  "summary": {
+    "question": "What is an exception in a workflow?",
+    "answer": "An exception is a request the agreed approval rules do not let software handle on its own, so it goes to a named person to decide. Discounts, refunds and costs above an agreed cap are common examples, and in a well-run workflow every exception is routed, recorded and counted rather than lost.",
+    "takeaways": [
+      "Decide before going live which kinds of request count as exceptions.",
+      "Name the person who receives each kind, for example the dispatcher, the estimator or the duty contact.",
+      "Hand off the request with a short summary, and make no commitment on the person's behalf.",
+      "Count exceptions every week and report them next to the main metric.",
+      "Change the rules in writing at a scheduled review, not on the fly."
+    ]
+  },
+  "scope": {
+    "covers": "What counts as an exception in a managed workflow, who should receive it, how to hand it off, and how to count it.",
+    "excludes": "Policies for a specific business, legal or regulatory advice, and price figures.",
+    "instead": "Writing the rules that define exceptions is covered in the guide to approval rules.",
+    "insteadLabel": "Use instead"
+  },
+  "sections": [
+    {
+      "heading": "What counts as an exception?",
+      "paragraphs": [
+        "An exception is any request the approval rules do not allow software to prepare and move forward without a person. The rules come first: once you have listed the decisions that stay with people, every request that needs one of those decisions is an exception.",
+        "Typical exceptions are pricing and discounts, refunds, departures from your normal process, any legal, financial or safety judgement, and anything outside the agreed scope."
+      ]
+    },
+    {
+      "heading": "Who should receive an exception?",
+      "paragraphs": [
+        "Every kind of exception needs a named owner, agreed in writing before anything goes live. Name a role rather than whoever happens to be on shift, so the handoff still works when people change."
+      ],
+      "list": [
+        "Prices, discounts, call-out charges and price exceptions go to the estimator or other authorised staff.",
+        "Diagnosis, safety decisions and repair instructions go to qualified technicians or other authorised staff.",
+        "Urgent issues, such as no heat on a freezing night, go straight to the duty contact under your emergency protocol."
+      ]
+    },
+    {
+      "heading": "What should a good handoff contain?",
+      "paragraphs": [
+        "The person receiving the exception should be able to decide without starting over. Keep the handoff short and make no promise on their behalf."
+      ],
+      "list": [
+        "The original request and where it came from.",
+        "Which rule made it an exception.",
+        "A short summary of what is being asked, for example the requested discount and the job it applies to.",
+        "What has already been said to the customer, if anything.",
+        "A clear statement that no price, refund or commitment has been made."
+      ]
+    },
+    {
+      "heading": "Why count exceptions?",
+      "paragraphs": [
+        "Results are judged against a baseline, and exceptions are part of that picture. Track the outcome, the exceptions and the human effort needed to get there. Count exceptions and handoffs separately, so the main metric is not flattered by work that was pushed elsewhere.",
+        "Read the number with care. Fewer exceptions is not automatically better: it can mean the rules were loosened, or that requests were not routed when they should have been."
+      ]
+    },
+    {
+      "heading": "How do exceptions change the rules?",
+      "paragraphs": [
+        "Review results, exceptions and staff time on a regular schedule. If the same exception keeps arriving, that review is the place to decide whether a rule should change. Change it in writing there, so everyone knows which rules are in force."
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "What is an exception in a workflow?",
+      "a": "A request the agreed approval rules do not let software handle on its own, so it goes to a named person to decide. Every exception is routed, recorded and counted."
+    },
+    {
+      "q": "Does Crewola decide exceptions?",
+      "a": "No. Pricing, approvals, exceptions and anything outside the agreed scope stay with the people responsible."
+    },
+    {
+      "q": "Are exceptions a sign the workflow is failing?",
+      "a": "Not on their own. They show where the rules hand work back to people. Read them next to the main metric and the baseline."
+    },
+    {
+      "q": "Who decides what counts as an exception?",
+      "a": "The team that owns the workflow, when it agrees the approval rules before anything goes live."
+    }
+  ],
+  "related": [
+    {
+      "href": "/guides/approval-rules",
+      "label": "What are approval rules in workflow automation?"
+    },
+    {
+      "href": "/guides/staff-minutes-per-resolved-request",
+      "label": "What is staff minutes per resolved request?"
+    },
+    {
+      "href": "/",
+      "label": "Crewola for HVAC and home-service companies"
+    }
+  ]
+}

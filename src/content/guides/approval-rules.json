@@ -1,0 +1,126 @@
+{
+  "slug": "approval-rules",
+  "kind": "Guide",
+  "topic": "Workflow rules",
+  "title": "What are approval rules in workflow automation? How to write them",
+  "shortTitle": "What are approval rules?",
+  "description": "Approval rules are written, checkable sentences that say what software may prepare on its own and what must wait for a person to confirm.",
+  "published": "2026-10-31",
+  "updated": "2026-10-31",
+  "summary": {
+    "question": "What are approval rules in workflow automation?",
+    "answer": "Approval rules are written, checkable sentences that say what software may prepare on its own and what must wait for a person to confirm. They are agreed before anything goes live, so the team stays in control of every decision that matters.",
+    "takeaways": [
+      "Write each approval rule as one sentence a reviewer can check.",
+      "List the decisions that stay with people first: pricing, discounts, refunds, exceptions, and any legal or safety judgement.",
+      "Decide which messages need review before they go out. With Crewola, your team reviews external messages.",
+      "Give every request outside the rules a named handoff, and record it.",
+      "Change rules in writing at a scheduled review, not on the fly."
+    ]
+  },
+  "scope": {
+    "covers": "What approval rules are, which decisions they should keep with people, how to word them and how to change them once the workflow is live.",
+    "excludes": "Rules for a specific software product, legal or regulatory advice, and price figures.",
+    "instead": "Routing the requests the rules hand back to people is covered in the guide to exceptions.",
+    "insteadLabel": "Use instead"
+  },
+  "sections": [
+    {
+      "heading": "What is an approval rule?",
+      "paragraphs": [
+        "An approval rule is one sentence that says what may be prepared automatically and what must wait for a person. A good rule is specific enough that a reviewer can look at a single request and say whether the rule was followed.",
+        "For example: do not confirm a service visit without the dispatcher's confirmation. That rule names the action, the person who confirms it, and what happens without them."
+      ]
+    },
+    {
+      "heading": "Which decisions should stay with people?",
+      "paragraphs": [
+        "Start by listing what software should never decide. Everything else is written relative to that list."
+      ],
+      "list": [
+        "Pricing and discounts.",
+        "Refunds.",
+        "Exceptions to your normal process.",
+        "Any legal, financial or safety judgement.",
+        "Anything outside the agreed scope."
+      ]
+    },
+    {
+      "heading": "Which messages need review before they go out?",
+      "paragraphs": [
+        "Decide in advance which outgoing messages a person must see first. With Crewola, your team reviews external messages before they go out, and Crewola does not book, change or confirm anything on its own."
+      ]
+    },
+    {
+      "heading": "How do you write a rule a reviewer can check?",
+      "list": [
+        "One sentence per rule.",
+        "Name the action, for example confirming a service visit or sharing a price.",
+        "Name who approves it, for example the dispatcher or the estimator.",
+        "Say what happens when approval is missing: the request waits, or it is handed to a named person.",
+        "Avoid words like appropriate or reasonable that two reviewers could read differently."
+      ]
+    },
+    {
+      "heading": "What happens to a request outside the rules?",
+      "paragraphs": [
+        "Every rule set needs a handoff path. Agree who receives a request the rules do not cover, and how the handoff is recorded, so it is counted as an exception rather than lost."
+      ],
+      "links": [
+        {
+          "href": "/guides/workflow-exceptions",
+          "label": "What is an exception, and how to route and count it"
+        }
+      ]
+    },
+    {
+      "heading": "How do approval rules change once the workflow is live?",
+      "paragraphs": [
+        "Review results, exceptions and staff time on a regular schedule. When a rule needs to change, change it in writing at that review, so everyone knows which rules are in force."
+      ]
+    },
+    {
+      "heading": "What do example rules look like at an HVAC company?",
+      "paragraphs": [
+        "These examples are illustrative and follow the limits stated on the Crewola home page."
+      ],
+      "list": [
+        "Scheduling: check the service area and technician availability, and let the dispatcher confirm every visit.",
+        "Service: use approved job categories and scheduling access, and do not diagnose a fault or give repair instructions.",
+        "Pricing: quotes, call-out charges, discounts and price exceptions require the estimator or other authorised staff."
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "What are approval rules in workflow automation?",
+      "a": "Approval rules are written, checkable sentences that say what software may prepare on its own and what must wait for a person to confirm. They are agreed before anything goes live."
+    },
+    {
+      "q": "Who should write the approval rules?",
+      "a": "The team that owns the workflow, with the person who reviews the results. They know which decisions carry risk."
+    },
+    {
+      "q": "Does Crewola send messages to customers on its own?",
+      "a": "No. Your team reviews external messages before they go out, and approval rules are agreed before anything goes live."
+    },
+    {
+      "q": "Can approval rules change once the workflow is live?",
+      "a": "Yes, in writing at a scheduled review. Any change to the scope itself is agreed separately first."
+    }
+  ],
+  "related": [
+    {
+      "href": "/guides/workflow-exceptions",
+      "label": "What is an exception in a workflow?"
+    },
+    {
+      "href": "/guides/staff-minutes-per-resolved-request",
+      "label": "What is staff minutes per resolved request?"
+    },
+    {
+      "href": "/",
+      "label": "Crewola for HVAC and home-service companies"
+    }
+  ]
+}
