@@ -4,6 +4,8 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { BLOCKED_ROBOTS, ALLOWED_ROBOTS, SIGNAL } from '../src/crawlers.mjs';
 import { misspellings, providerClaims, retiredTerms } from '../src/brand.mjs';
+import { SITE } from '../src/site.mjs';
+if (!SITE.description.startsWith(SITE.definition.replace(/\.$/, ','))) throw new Error('SITE.definition must be the start of SITE.description');
 
 const DIST = 'dist';
 const files = [];
@@ -59,7 +61,10 @@ for (const page of pages) {
   const decode = t => t.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
   const meta = decode(html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '');
   const visible = decode(html.replace(/<head>[\s\S]*?<\/head>/, '').replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
-  if (!isNotFound && (!meta || !visible.includes(meta))) problems.push(`${page}: the meta description does not appear in the visible text`);
+  // Each description is SITE.definition (the start of the full definition) and one sentence the page shows, after an
+  // optional "Guide: " style label, so it never says anything the site does not.
+  const tail = meta.startsWith(`${SITE.definition} `) ? meta.slice(SITE.definition.length + 1).replace(/^[A-Z][a-z]+: /, '').replace(/\.$/, '') : null;
+  if (!isNotFound && (!tail || !visible.includes(tail))) problems.push(`${page}: the meta description is not SITE.definition plus a sentence the page shows`);
   if (!/<meta property="og:image:alt" content="[^"]+"/.test(html) || !/<meta name="twitter:image:alt" content="[^"]+"/.test(html)) problems.push(`${page}: missing og:image:alt or twitter:image:alt`);
   // A HowTo must list exactly the steps the page shows, and a Service must use the page's definition.
   for (const b of blocks) {
@@ -71,7 +76,7 @@ for (const page of pages) {
       if (JSON.stringify(howto.step.map(x => x.name)) !== JSON.stringify(shown)) problems.push(`${page}: HowTo steps differ from the visible steps`);
     }
     const svc = nodes.find(n => n['@type'] === 'Service');
-    if (svc && svc.description !== meta) problems.push(`${page}: Service description differs from the page definition`);
+    if (svc && svc.description !== SITE.description) problems.push(`${page}: Service description differs from the page definition`);
     if (svc) for (const k of ['image', 'availableChannel', 'audience', 'provider']) if (!svc[k]) problems.push(`${page}: Service has no ${k}`);
   }
   if (!isNotFound && !/<link rel="canonical"/.test(html)) problems.push(`${page}: no canonical link`);
@@ -123,7 +128,7 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
 // Retired terms: no file name or text file in the built site may mention dental or a pilot.
 for (const f of files) {
   for (const w of retiredTerms(f)) problems.push(`${f}: file name mentions a retired term ("${w}")`);
-  if (/\.(html|css|js|mjs|json|xml|txt|svg|webmanifest)$/.test(f)) for (const w of new Set(retiredTerms(readFileSync(f, 'utf8')))) problems.push(`${f}: mentions a retired term ("${w}"); there is no dental service and no pilot`);
+  if (/\.(html|css|js|mjs|json|xml|txt|md|svg|webmanifest)$/.test(f)) for (const w of new Set(retiredTerms(readFileSync(f, 'utf8')))) problems.push(`${f}: mentions a retired term ("${w}"); there is no dental service and no pilot`);
 }
 
 // Request films: every card (the hero, each scene and the workflow) is a film of 4 to 6 shots that opens on the
@@ -159,6 +164,47 @@ for (const f of files) {
     const body = readFileSync(join(DIST, f), 'utf8');
     for (const m of body.matchAll(/(\d+ steps: [^.;)\n]+)/g)) if (!sums(m[1])) problems.push(`${f}: summary does not add up (${m[1]})`);
   }
+}
+
+// Search, answer and share readiness: descriptions, twitter:image, the deferred script, Markdown copies, IndexNow.
+{
+  const { SITE, PATHS } = await import('../src/site.mjs');
+  const unesc = t => t.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+  for (const f of pages) {
+    const html = readFileSync(f, 'utf8');
+    for (const k of ['name="description"', 'property="og:description"', 'name="twitter:description"']) {
+      const m = new RegExp(`<meta ${k} content="([^"]*)">`).exec(html);
+      const t = m ? unesc(m[1]) : '';
+      if (!m) problems.push(`${f}: missing <meta ${k}>`);
+      else if (t.length > 160) problems.push(`${f}: ${k} is ${t.length} characters (160 at most)`);
+      else if (!t.startsWith(`${SITE.definition} `)) problems.push(`${f}: ${k} must start with SITE.definition`);
+    }
+    if (!html.includes('<meta name="twitter:card" content="summary_large_image">')) problems.push(`${f}: twitter:card must be summary_large_image`);
+    if (!html.includes(`<meta name="twitter:image" content="${SITE.url}/og/home.png">`)) problems.push(`${f}: missing absolute twitter:image`);
+    for (const m of html.matchAll(/<script\b[^>]*>/g)) {
+      const tag = m[0];
+      if (/type="application\/(ld\+)?json"/.test(tag)) continue;
+      if (!/\sdefer\b|type="module"/.test(tag)) problems.push(`${f}: render-blocking script (${tag}); use defer or type="module"`);
+    }
+    const md = /<link rel="alternate" type="text\/markdown" href="([^"]+)">/.exec(html);
+    if (md && !existsSync(join(DIST, md[1]))) problems.push(`${f}: Markdown copy ${md[1]} missing`);
+    if (!md && !html.includes('<meta name="robots" content="noindex">')) problems.push(`${f}: no Markdown alternate link`);
+  }
+  const llms = readFileSync(join(DIST, 'llms.txt'), 'utf8');
+  for (const f of ['index.md', 'guides.md', ...SITE.guides.map(s => `guides/${s}.md`), 'privacy.md']) {
+    if (!existsSync(join(DIST, f))) problems.push(`${f}: missing Markdown copy`);
+    else if (!readFileSync(join(DIST, f), 'utf8').startsWith('# ')) problems.push(`${f}: Markdown copy must start with a # heading`);
+    if (!llms.includes(`(${SITE.url}/${f})`)) problems.push(`llms.txt: does not list /${f}`);
+  }
+  const vercel = JSON.parse(readFileSync('vercel.json', 'utf8'));
+  if (!vercel.headers.some(h => h.source === '/(.*)\\.md' && h.headers.some(x => x.key === 'Content-Type' && x.value.startsWith('text/markdown')))) problems.push('vercel.json: .md files must be served as text/markdown');
+  const sitemap = readFileSync(join(DIST, 'sitemap.xml'), 'utf8');
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+  if (locs.join() !== PATHS.map(p => SITE.url + p).join()) problems.push('sitemap.xml and PATHS (the IndexNow URL list) differ');
+  const k = join(DIST, `${SITE.indexNowKey}.txt`);
+  if (!/^[a-f0-9]{32}$/.test(SITE.indexNowKey ?? '') || !existsSync(k) || readFileSync(k, 'utf8').trim() !== SITE.indexNowKey) problems.push('IndexNow key file missing or wrong');
+  const { INDEXNOW_PATH } = await import('../middleware.js');
+  if (!existsSync(`.${INDEXNOW_PATH}.js`)) problems.push(`middleware.js INDEXNOW_PATH ${INDEXNOW_PATH} has no function file`);
 }
 
 if (problems.length) {

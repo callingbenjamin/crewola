@@ -59,7 +59,7 @@ const ALLOWED_UAS = {
 };
 
 for (const [name, ua] of Object.entries(BLOCKED_UAS)) {
-  for (const path of ['/', '/hotels', '/guides/approval-rules', '/llms.txt', '/media/hotels.webp']) if (status(ua, path) !== 403) problems.push(`${name} should get 403 on ${path}`);
+  for (const path of ['/', '/hotels', '/guides/approval-rules', '/llms.txt', '/index.md', '/guides/approval-rules.md', '/media/hotels.webp']) if (status(ua, path) !== 403) problems.push(`${name} should get 403 on ${path}`);
   if (status(ua, '/robots.txt') !== 'next') problems.push(`${name} must be able to read /robots.txt`);
 }
 for (const [name, ua] of Object.entries(ALLOWED_UAS)) {
@@ -77,8 +77,38 @@ for (const bot of ALLOWED_ROBOTS) {
 }
 // The matcher keeps /robots.txt out of the middleware and keeps pages and media in.
 const matcher = new RegExp(`^${config.matcher[0]}$`);
-for (const p of ['/', '/hotels', '/guides', '/llms.txt', '/llms-full.txt', '/sitemap.xml', '/media/hotels.webp', '/og/home.png']) if (!matcher.test(p)) problems.push(`matcher must include ${p}`);
+for (const p of ['/', '/hotels', '/guides', '/llms.txt', '/index.md', '/guides.md', '/guides/approval-rules.md', '/privacy.md', '/llms-full.txt', '/sitemap.xml', '/media/hotels.webp', '/og/home.png']) if (!matcher.test(p)) problems.push(`matcher must include ${p}`);
 for (const p of ['/robots.txt', '/fonts/a.woff2', '/styles.css', '/site.js']) if (matcher.test(p)) problems.push(`matcher should skip ${p}`);
+
+// IndexNow trigger: in production, the first request on crewola.com asks INDEXNOW_PATH in the background
+// (waitUntil) once; previews, *.vercel.app, other hosts and /api/ requests never do, and the page is never held.
+{
+  const realFetch = globalThis.fetch;
+  const ctx = Symbol.for('@vercel/request-context');
+  const run = async (env, urls) => {
+    const fetched = [], waited = [];
+    globalThis.fetch = async u => { fetched.push(String(u)); return new Response('ok'); };
+    globalThis[ctx] = { get: () => ({ waitUntil: p => waited.push(p) }) };
+    const prev = process.env.VERCEL_ENV;
+    process.env.VERCEL_ENV = env;
+    const mod = await import(`../middleware.js?indexnow=${env}-${urls.join()}`);
+    const results = urls.map(u => mod.default(new Request(u, { headers: { 'user-agent': ALLOWED_UAS.Chrome } })));
+    await Promise.all(waited);
+    if (prev === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = prev;
+    globalThis.fetch = realFetch;
+    delete globalThis[ctx];
+    return { fetched, waited, results, path: mod.INDEXNOW_PATH };
+  };
+  const prod = await run('production', ['https://crewola.com/', 'https://crewola.com/guides', 'https://crewola.com/privacy']);
+  if (prod.fetched.length !== 1 || prod.fetched[0] !== `https://crewola.com${prod.path}`) problems.push(`IndexNow: production should ask ${prod.path} once (asked ${JSON.stringify(prod.fetched)})`);
+  if (prod.waited.length !== 1) problems.push('IndexNow: the ask must go through waitUntil');
+  if (prod.results.some(r => !(r instanceof Response) || r.headers.get('x-middleware-next') !== '1')) problems.push('IndexNow: pages must pass straight through');
+  for (const [env, urls] of [['preview', ['https://crewola.com/']], ['production', ['https://crewola-git-x-ben100mm.vercel.app/']], ['production', ['https://crewola.com/api/x']], ['development', ['https://crewola.com/']]]) {
+    const r = await run(env, urls);
+    if (r.fetched.length) problems.push(`IndexNow: must not ping for ${env} ${urls[0]}`);
+  }
+  if (!/^\/api\/indexnow-[a-f0-9]{24}$/.test(prod.path)) problems.push('IndexNow: INDEXNOW_PATH must be an unguessable /api/indexnow-<hex> path');
+}
 
 if (problems.length) { console.error(problems.join('\n')); process.exit(1); }
 console.log(`OK: middleware blocks ${Object.keys(BLOCKED_UAS).length} training crawlers and passes ${Object.keys(ALLOWED_UAS).length} allowed user agents; /robots.txt is open to all.`);

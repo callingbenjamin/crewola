@@ -1,11 +1,11 @@
 // Builds the static site into dist/: the home page from src/content/sectors, the guides, privacy and 404.
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { SITE } from './src/site.mjs';
+import { SITE, PATHS } from './src/site.mjs';
 import { sectorPage } from './src/pages/sector.mjs';
 import { privacyPage, notFoundPage } from './src/pages/plain.mjs';
 import { guidesIndexPage, guidePage } from './src/pages/guides.mjs';
-import { llmsTxt, llmsFullTxt } from './src/llms.mjs';
+import { llmsTxt, llmsFullTxt, homeMarkdown, guidesIndexMarkdown, guideMarkdown, privacyMarkdown } from './src/llms.mjs';
 import { BLOCKED_ROBOTS, ALLOWED_ROBOTS, SIGNAL } from './src/crawlers.mjs';
 
 const OUT = 'dist';
@@ -27,10 +27,15 @@ write('guides/index.html', guidesIndexPage(guides));
 for (const g of guides) write(`guides/${g.slug}/index.html`, guidePage(g));
 write('privacy/index.html', privacyPage());
 write('404.html', notFoundPage());
+// Markdown copies (text/markdown, see vercel.json), linked from each page and listed in llms.txt.
+write('index.md', homeMarkdown(sector));
+write('guides.md', guidesIndexMarkdown(guides));
+for (const g of guides) write(`guides/${g.slug}.md`, guideMarkdown(g));
+write('privacy.md', privacyMarkdown());
 
 // lastmod: SITE.updated for fixed pages, each guide's own updated date for guides.
 const lastmod = { ...SITE.updated, ...Object.fromEntries(guides.map(g => [`/guides/${g.slug}`, g.updated])) };
-const paths = ['/', '/guides', ...guides.map(g => `/guides/${g.slug}`), '/privacy'];
+const paths = PATHS;
 for (const p of paths) if (!/^\d{4}-\d{2}-\d{2}$/.test(lastmod[p] ?? '')) throw new Error(`${p}: add its updated date (YYYY-MM-DD) to SITE.updated in src/site.mjs`);
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

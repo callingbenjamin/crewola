@@ -8,7 +8,7 @@ const nav = [
   { href: '/#start', label: 'Talk to us', button: true },
 ];
 
-function plainPage({ path, title, category, description, current, body, noindex = false }) {
+function plainPage({ path, title, category, description, summary, current, body, noindex = false, markdown }) {
   const full = `${title} · ${SITE.titleBrand}`;
   return page({
     path,
@@ -18,7 +18,8 @@ function plainPage({ path, title, category, description, current, body, noindex 
       webPage({ path, title: full, description, updated: SITE.updated[path] }),
       breadcrumbs(path, [{ name: SITE.name, path: '/' }, { name: title, path }]),
     ]),
-    description,
+    summary,
+    markdown,
     image: '/og/home.png',
     imageAlt: HOME_IMAGE_ALT,
     bodyClass: 'plain',
@@ -30,14 +31,8 @@ function plainPage({ path, title, category, description, current, body, noindex 
 
 const PRIVACY_DEFINITION = `This privacy notice explains how the ${SITE.name} website handles your information: it uses no cookies, analytics or trackers, and enquiries stay in your browser until you send them.`;
 
-export function privacyPage() {
-  return plainPage({
-    path: '/privacy',
-    title: 'Privacy',
-    category: 'Website privacy notice',
-    description: PRIVACY_DEFINITION,
-    current: 'privacy',
-    body: `<div class="eyebrow">Privacy</div>
+// The privacy notice, also served as Markdown at /privacy.md (src/llms.mjs).
+export const PRIVACY_BODY = `<div class="eyebrow">Privacy</div>
 <h1>How this website handles your information.</h1>
 <p class="lead">${PRIVACY_DEFINITION}</p>
 <p>Last updated 31 October 2026.</p>
@@ -53,7 +48,18 @@ export function privacyPage() {
 <h2>Hosting</h2>
 <p>The site is hosted by Vercel. Like most web hosts, Vercel keeps standard access logs (for example IP address, browser type and time of request) to run and protect the service.</p>
 <h2>Contact</h2>
-<p>Questions about this notice: <a href="mailto:${SITE.email}">${SITE.email}</a>.</p>`,
+<p>Questions about this notice: <a href="mailto:${SITE.email}">${SITE.email}</a>.</p>`;
+
+export function privacyPage() {
+  return plainPage({
+    path: '/privacy',
+    title: 'Privacy',
+    category: 'Website privacy notice',
+    description: PRIVACY_DEFINITION,
+    summary: 'Privacy: How this website handles your information.',
+    markdown: '/privacy.md',
+    current: 'privacy',
+    body: PRIVACY_BODY,
   });
 }
 
@@ -62,6 +68,7 @@ export function notFoundPage() {
     path: '/404',
     title: 'Page not found',
     description: 'This page does not exist.',
+    summary: 'This page does not exist.',
     current: null,
     noindex: true,
     body: `<div class="eyebrow">404</div>
