@@ -215,6 +215,12 @@ section.page{padding:190px 0 110px}
   .faq,.measure{gap:60px}
 }
 
+/* Mid widths: stack the hero so the headline keeps the full width and stays on two lines */
+@media(min-width:761px) and (max-width:1100px){
+  .hero-content{grid-template-columns:minmax(0,1fr);gap:34px}
+  .hero-copy{max-width:820px}
+}
+
 @media(max-width:760px){
   html{scroll-padding-top:100px}
   .wrap{padding:0 22px}
@@ -630,4 +636,4 @@ ol.steps{list-style:none;margin:0;padding:0}
 #headline{font-size:clamp(16px,6.3cqw,60px);line-height:1.1;letter-spacing:-.035em;min-height:2.2em;text-wrap:balance}
 #headline em{display:inline}
 /* The headline accent: the mark's amber as text colour on the dark hero (the only accent; no fade, no motion). */
-#headline .h1-accent{color:#F2B544}
+#headline .h1-accent{color:#F2B544;text-shadow:0 1px 12px rgba(20,24,26,.55)}
