@@ -20,11 +20,20 @@ export const arrow = ARROW;
 
 // jsonLd: a schema.org object from graph() in seo.mjs. noindex: keep the page out of search (404).
 // imageAlt: one sentence naming the brand and what the share image shows.
-export function page({ path, title, description, image, imageAlt, bodyClass = '', header, main, footer, config, jsonLd, ogType = 'website', noindex = false }) {
+// Search and share snippets: SITE.definition, then one short sentence about this page (summary), 160 characters at most.
+export const snippet = summary => {
+  const text = `${SITE.definition} ${summary}`;
+  if (text.length > 160) throw new Error(`description over 160 characters (${text.length}): ${text}`);
+  return text;
+};
+
+// summary: one short sentence about the page, appended to SITE.definition for the meta, og and twitter descriptions.
+export function page({ path, title, summary, image, imageAlt, bodyClass = '', header, main, footer, config, jsonLd, ogType = 'website', noindex = false, markdown }) {
   if (!imageAlt) throw new Error(`${path}: page() needs imageAlt for its share image`);
   const url = SITE.url + path;
   // Titles arrive finished ('{Page} · Crewola by Actuathron', or the homepage line); share previews use the same text.
   const shareTitle = title;
+  const description = snippet(summary);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -32,7 +41,7 @@ export function page({ path, title, description, image, imageAlt, bodyClass = ''
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}
+${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}${markdown ? `\n<link rel="alternate" type="text/markdown" href="${markdown}">` : ''}
 <meta name="theme-color" content="#20292C">
 <meta property="og:type" content="${ogType}">
 <meta property="og:site_name" content="${esc(SITE.titleBrand)}">
@@ -44,6 +53,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${esc(imageAlt)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE.url}${image}">
 <meta name="twitter:image:alt" content="${esc(imageAlt)}">
 <meta name="twitter:title" content="${esc(shareTitle)}">
 <meta name="twitter:description" content="${esc(description)}">

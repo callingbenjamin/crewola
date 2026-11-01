@@ -48,7 +48,8 @@ ${scopeBlock(GUIDES_INDEX.scope)}
   return page({
     path,
     title,
-    description: GUIDES_INDEX.description,
+    summary: 'Guides: Stop losing enquiries. Measure the results.',
+    markdown: '/guides.md',
     image: '/og/home.png',
     imageAlt: HOME_IMAGE_ALT,
     bodyClass: 'plain',
@@ -64,6 +65,14 @@ ${scopeBlock(GUIDES_INDEX.scope)}
 }
 
 // Every guide's call to action opens the enquiry form on the home page.
+// The page sentence after SITE.definition in the guide's meta, og and twitter descriptions: its kind and title, or
+// the title's first question when the whole title does not fit in 160 characters.
+const guideSummary = g => {
+  const end = t => (/[?.]$/.test(t) ? t : `${t}.`);
+  const full = `${g.kind}: ${end(g.title)}`;
+  return `${SITE.definition} ${full}`.length <= 160 ? full : `${g.kind}: ${g.title.split('?')[0]}?`;
+};
+
 export function guidePage(g) {
   const path = `/guides/${g.slug}`;
   if (g.sector && g.sector !== SITE.sector) throw new Error(`${g.slug}: sector "${g.sector}" is not ${SITE.sector}`);
@@ -92,7 +101,8 @@ ${faqList(g.faq)}
   return page({
     path,
     title,
-    description: g.description,
+    summary: guideSummary(g),
+    markdown: `/guides/${g.slug}.md`,
     image: '/og/home.png',
     imageAlt: HOME_IMAGE_ALT,
     bodyClass: 'plain guide',

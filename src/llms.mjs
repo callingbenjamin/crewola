@@ -5,6 +5,7 @@ import { SITE } from './site.mjs';
 import { COST_FAQ, PROMISES } from './layout.mjs';
 import { ENQUIRY_FAQ, SITE_FAQ, startSteps, ACTOR as FLOW_ACTOR, STAGES as FLOW_STAGES, flowSummary } from './pages/sector.mjs';
 import { GUIDES_INDEX } from './pages/guides.mjs';
+import { PRIVACY_BODY } from './pages/plain.mjs';
 
 const url = path => SITE.url + path;
 const plain = html => String(html).replace(/<[^>]+>/g, '');
@@ -67,6 +68,15 @@ ${sector.demo.scenes.map(sc => `- ${sc.tab} ("${sc.request}", ${sc.source.toLowe
 ## Guides
 
 ${guides.map(g => `- [${g.title}](${url(`/guides/${g.slug}`)}): ${g.description}`).join('\n')}
+
+## Markdown copies
+
+Each page is also served as Markdown (text/markdown), linked from the page with rel="alternate".
+
+- [Home (Markdown)](${url('/index.md')})
+- [Guides (Markdown)](${url('/guides.md')})
+${guides.map(g => `- [${g.title} (Markdown)](${url(`/guides/${g.slug}.md`)})`).join('\n')}
+- [Privacy (Markdown)](${url('/privacy.md')})
 
 ## Optional
 
@@ -151,3 +161,22 @@ ${sectorMd(sector)}
 ${guides.map(guideMd).join('\n\n')}
 `;
 }
+
+// Markdown copies of each page, served at /index.md, /guides.md, /guides/<slug>.md and /privacy.md (text/markdown)
+// and linked from each page with <link rel="alternate" type="text/markdown">. Same content files as the HTML.
+const source = path => `Source: ${url(path)}. Contact: ${SITE.email}.`;
+const htmlToMd = html => html
+  .replace(/<div class="eyebrow">[^<]*<\/div>\n?/g, '')
+  .replace(/<h1>(.*?)<\/h1>/g, '# $1\n')
+  .replace(/<h2>(.*?)<\/h2>/g, '\n## $1\n')
+  .replace(/<li>(.*?)<\/li>/g, '- $1')
+  .replace(/<\/?ul>/g, '')
+  .replace(/<p[^>]*>(.*?)<\/p>/g, '$1\n')
+  .replace(/<strong>(.*?)<\/strong>/g, '**$1**')
+  .replace(/<a href="mailto:([^"]+)">[^<]*<\/a>/g, '$1')
+  .replace(/<a href="([^"]+)">(.*?)<\/a>/g, (m, h, t) => `[${t}](${h.startsWith('/') ? url(h) : h})`)
+  .replace(/\n{3,}/g, '\n\n').trim();
+export const homeMarkdown = s => `# ${SITE.name}\n\n> ${SITE.description}\n\n${source('/')}\n\n${sectorMd(s).replace(/\n\nURL: [^\n]*\n/, '\n')}\n`;
+export const guidesIndexMarkdown = guides => `# Guides\n\n> ${GUIDES_INDEX.description}\n\n${source('/guides')}\n\n${guides.map(g => `- [${g.title}](${url(`/guides/${g.slug}`)}) (Markdown: ${url(`/guides/${g.slug}.md`)}): ${g.description}`).join('\n')}\n`;
+export const guideMarkdown = g => `# ${g.title}\n\n> ${g.description}\n\n${source(`/guides/${g.slug}`)}\n\n${guideMd(g).replace(/^## [^\n]*\n\nURL: [^\n]*\n/, '')}\n`;
+export const privacyMarkdown = () => `${htmlToMd(PRIVACY_BODY).replace(/^(# [^\n]*\n)/, `$1\n${source('/privacy')}\n`)}\n`;
