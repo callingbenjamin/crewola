@@ -1,6 +1,8 @@
 // Site-wide settings for crewola.com.
 export const SITE = {
   name: 'Crewola',
+  // Brand line for <title>, og:title, twitter:title and og:site_name only. The logo, wordmark and footer stay as they are.
+  titleBrand: 'Crewola by Actuathron',
   url: 'https://crewola.com',
   // Enquiries go to the Crewola sales inbox: Crewola is Actuathron's service for home service companies.
   email: 'sales@crewola.com',

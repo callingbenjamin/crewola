@@ -171,7 +171,7 @@ export function sectorPage(d, guides = []) {
   const faq = [...d.faq, ...SITE_FAQ, COST_FAQ, ENQUIRY_FAQ];
   // The first scenario is in the HTML, so the example reads the same without JavaScript; site.js takes over from there.
   const first = d.demo.scenes[0];
-  const title = `${SITE.name} | ${SITE.category}`;
+  const title = `${SITE.titleBrand} · ${d.hero.headline.join(' ').replace(/\s+/g, ' ').replace(/\.$/, '')}`;
   const steps = startSteps(d);
   const guide = guides.find(g => g.sector === d.key);
   if (d.workflow.steps.length !== FLOW_PHASE.length || d.workflow.steps.some(s => !ACTOR[s.actor] || !s.who || !s.title || !s.body || !ICON_PATHS[s.icon])) throw new Error(`${d.key}: the workflow needs 8 complete steps`);

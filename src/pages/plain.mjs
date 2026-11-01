@@ -9,7 +9,7 @@ const nav = [
 ];
 
 function plainPage({ path, title, category, description, current, body, noindex = false }) {
-  const full = `${title} — ${SITE.name}${category ? ` | ${category}` : ''}`;
+  const full = `${title} · ${SITE.titleBrand}`;
   return page({
     path,
     title: full,
