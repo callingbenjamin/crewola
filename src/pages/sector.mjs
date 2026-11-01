@@ -3,6 +3,15 @@ import { esc, arrow, page, header, footer, promiseStrip, faqList, answerBlock, b
 import { graph, webPage, faqPage, service, serviceId, howTo } from '../seo.mjs';
 import { asset, posterPicture } from '../assets.mjs';
 // The hero image fills the viewport width, or more on tall screens.
+
+// accent: wraps the headline's accent phrase (hero.accent) in a span. The words stay plain text in the HTML.
+function accent(html, phrase) {
+  if (!phrase) return html;
+  const p = esc(phrase);
+  if (!html.includes(p)) throw new Error(`hero.accent "${phrase}" is not in the headline`);
+  return html.replace(p, `<span class="h1-accent">${p}</span>`);
+}
+
 export const HERO_SIZES = 'max(100vw, 178vh)';
 
 const VOLUMES = ['Not sure yet', 'Under 25', '25–100', '101–300', 'More than 300'];
@@ -187,7 +196,7 @@ export function sectorPage(d, guides = []) {
 <div class="wrap hero-content">
 <div class="hero-copy">
 <div class="eyebrow">${esc(d.hero.eyebrow)}</div>
-<h1 id="headline">${esc(d.hero.headline[0])} <em>${esc(d.hero.headline[1])}</em></h1>
+<h1 id="headline">${accent(esc(d.hero.headline[0]), d.hero.accent)} <em>${esc(d.hero.headline[1])}</em></h1>
 <p class="intro">${esc(d.hero.intro)}</p>
 <div class="actions"><a class="btn" href="#start">Talk to us ${arrow}</a><a class="btn outline" href="#example">See the workflow <span aria-hidden="true">↓</span></a></div>
 <p class="micro">${esc(d.hero.audience)}<br>Pricing and dispatch always need human approval.</p>

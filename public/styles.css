@@ -68,7 +68,7 @@ h3{font:500 27px/1.3 var(--font);letter-spacing:-.6px;margin:15px 0}
 .hero-media picture{display:contents}
 .hero-media video{opacity:0;transition:opacity .5s}
 .hero-media video.is-playing{opacity:1}
-.hero-wash{position:absolute;inset:0;background:linear-gradient(90deg,#20292ca8 0%,#20292c55 58%,#20292c2e),linear-gradient(0deg,var(--bg) 0%,transparent 27%);z-index:-1}
+.hero-wash{position:absolute;inset:0;background:linear-gradient(90deg,#20292ce0 0%,#20292cc0 58%,#20292c70),linear-gradient(0deg,var(--bg) 0%,transparent 27%);z-index:-1}
 .hero-content{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,500px);gap:48px;align-items:center}
 .hero h1{font:500 clamp(48px,5.2vw,78px)/1.1 var(--font);letter-spacing:-2.9px;margin:25px 0;max-width:760px}
 .hero h1 em{font-style:normal;display:block}
@@ -241,7 +241,7 @@ section.page{padding:190px 0 110px}
   .handoff{gap:10px}
   .handoff li{font-size:12px;grid-template-columns:28px 1fr}
   .hero-card figcaption{font-size:9px;margin-top:14px;padding-top:12px}
-  .hero-wash{background:linear-gradient(90deg,#20292cb3,#20292c55),linear-gradient(0deg,var(--bg),transparent 45%)}
+  .hero-wash{background:linear-gradient(90deg,#20292ce0,#20292cb8),linear-gradient(0deg,var(--bg),transparent 45%)}
   .hero-foot{padding:0 22px;font-size:9px;bottom:22px}
   .hero-foot>span{max-width:180px}
   .video-control{font-size:9px;padding:9px 11px}
@@ -629,3 +629,5 @@ ol.steps{list-style:none;margin:0;padding:0}
 .hero-copy:has(#headline){container-type:inline-size}
 #headline{font-size:clamp(19px,6.6cqw,60px);line-height:1.1;letter-spacing:-.035em;min-height:2.2em;text-wrap:balance}
 #headline em{display:inline}
+/* The headline accent: the mark's amber as text colour on the dark hero (the only accent; no fade, no motion). */
+#headline .h1-accent{color:#F2B544}

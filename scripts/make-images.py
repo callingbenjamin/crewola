@@ -26,9 +26,10 @@ body{{margin:0;width:1200px;height:630px;font-family:Geist;color:#F5F2EB;backgro
 .eyebrow{{font-size:16px;letter-spacing:3px;text-transform:uppercase;color:#aaa8a3;margin-bottom:22px}}
 h1{{font-weight:500;font-size:74px;line-height:1.08;letter-spacing:-2.8px;margin:0;max-width:820px}}
 .bar{{width:120px;height:4px;background:#F2B544}}
+.accent{{color:#F2B544}}
 </style></head><body><div class="wash"></div><div class="in">
 <div class="brand">{LOGO}</div>
-<div><div class="eyebrow">{html.escape(eyebrow)}</div><h1>{'<br>'.join(html.escape(l) for l in lines)}</h1></div>
+<div><div class="eyebrow">{html.escape(eyebrow)}</div><h1>{' '.join(html.escape(l) for l in lines).replace(html.escape(ACCENT), f'<span class="accent">{html.escape(ACCENT)}</span>', 1) if ACCENT else '<br>'.join(html.escape(l) for l in lines)}</h1></div>
 <div class="bar"></div></div></body></html>'''
 
 def icon(size):
@@ -61,6 +62,7 @@ def write_ico(pngs, out):
     out.write_bytes(head + b''.join(data))
 
 d = json.loads((ROOT / 'src/content/sectors/home-services.json').read_text())
+ACCENT = d['hero'].get('accent', '')
 shot(card('HVAC enquiry handling for home-service companies', d['hero']['headline'], ROOT / 'public/media/home-services/poster.jpg'),
      ROOT / 'public/og/home.png', 1200, 630)
 shot(icon(180), ROOT / 'public/apple-touch-icon.png', 180, 180)

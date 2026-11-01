@@ -13,7 +13,8 @@
     ],
     "intro": "Crewola is a managed workflow service for HVAC companies and other home-service trades that turns heating and cooling enquiries, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.",
     "audience": "For HVAC companies & their field teams",
-    "foot": "For the crews who keep homes comfortable."
+    "foot": "For the crews who keep homes comfortable.",
+    "accent": "never clocks out"
   },
   "summary": {
     "question": "What is Crewola?",
