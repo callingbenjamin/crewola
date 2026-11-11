@@ -1,12 +1,13 @@
 """Regenerates the share images (public/og/*.png), the touch and app icons and public/favicon.ico.
 
 Run after changing a headline or a hero photo:
-    npm run build && python3 scripts/make-images.py
+    npm run build && python3 scripts/make-images.py [--og-only]
+(--og-only rewrites only the share image.)
 Needs Google Chrome on the PATH as google-chrome (headless screenshots, no other dependencies).
 The mark is a fan in a chat bubble: public/brand/crewola-mark.svg (detailed, three blades) and
 public/favicon.svg (the same shape drawn on a 16 px grid, so it stays legible in a tab).
 """
-import json, pathlib, html, tempfile, subprocess, struct
+import json, pathlib, html, tempfile, subprocess, struct, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # The logo files are the source of truth: the ivory version sits on the graphite cards, the mark alone on the icon.
@@ -16,15 +17,15 @@ FAVICON = (ROOT / 'public/favicon.svg').read_text()
 FONT = (ROOT / 'public/fonts/geist-latin-v5.woff2').as_uri()
 
 def card(eyebrow, lines, photo=None):
-    bg = f'url({photo.as_uri()}) center/cover' if photo else '#20292C'
+    bg = f'url({photo.as_uri()}) center/cover' if photo else '#0B0F11'
     return f'''<!doctype html><html><head><style>
 @font-face{{font-family:Geist;src:url({FONT}) format('woff2');font-weight:400 700}}
 body{{margin:0;width:1200px;height:630px;font-family:Geist;color:#F5F2EB;background:{bg};position:relative;overflow:hidden}}
-.wash{{position:absolute;inset:0;background:linear-gradient(90deg,#20292Cf2 0%,#20292Ccc 48%,#20292C55 100%)}}
+.wash{{position:absolute;inset:0;background:linear-gradient(90deg,#0B0F11f2 0%,#0B0F11cc 48%,#0B0F1166 100%)}}
 .in{{position:absolute;inset:0;padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between}}
 .brand svg{{display:block;height:46px;width:300px}}
 .eyebrow{{font-size:16px;letter-spacing:3px;text-transform:uppercase;color:#aaa8a3;margin-bottom:22px}}
-h1{{font-weight:500;font-size:74px;line-height:1.08;letter-spacing:-2.8px;margin:0;max-width:820px}}
+h1{{font-weight:500;font-size:84px;line-height:1.08;letter-spacing:-3px;margin:0;max-width:1000px;text-transform:capitalize}}
 .bar{{width:120px;height:4px;background:#F2B544}}
 .accent{{color:#F2B544}}
 </style></head><body><div class="wash"></div><div class="in">
@@ -65,6 +66,9 @@ d = json.loads((ROOT / 'src/content/sectors/home-services.json').read_text())
 ACCENT = d['hero'].get('accent', '')
 shot(card('Enquiry handling for home service companies', d['hero']['headline'], ROOT / 'public/media/home-services/poster.jpg'),
      ROOT / 'public/og/home.png', 1200, 630)
+if '--og-only' in sys.argv:
+    print('wrote public/og/home.png')
+    raise SystemExit
 shot(icon(180), ROOT / 'public/apple-touch-icon.png', 180, 180)
 for size in (192, 512):
     shot(icon(size), ROOT / f'public/icon-{size}.png', size, size)

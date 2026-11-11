@@ -116,7 +116,7 @@ export const COST_FAQ = {
 };
 
 // Share image for the home page, guides and plain pages.
-export const HOME_IMAGE_ALT = `Crewola: Your back office that never clocks out, for home service companies.`;
+export const HOME_IMAGE_ALT = `Crewola: Every Enquiry. A Clearer Schedule. Enquiry handling for home service companies.`;
 
 // Scope stated as plain facts. scope: { covers, excludes, instead?, insteadLabel? } (insteadLabel defaults to "Handled by").
 export const scopeBlock = scope => `<dl class="scope-facts">

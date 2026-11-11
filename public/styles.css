@@ -232,6 +232,9 @@ a:hover>.arr{transform:translate(2px,-2px)}
   linear-gradient(90deg,#080B0CB3 0%,#080B0C33 60%,#080B0C66 100%),
   linear-gradient(180deg,#080B0CB3 0%,#080B0C00 26%)}
 .hero-card{left:auto;right:var(--pad);opacity:1;translate:0 0;animation:rise 1.1s var(--ease) 1s both;pointer-events:auto}
+/* The card sits in the hero's flow, above the text block, so the two can never overlap: a short window makes the hero taller instead. */
+.hero-sector .film-stage{position:relative;inset:auto;margin:-22px 0 32px;flex:none}
+.hero-sector .hero-card{position:relative;top:auto;right:auto;margin-left:auto}
 .hero-card-head{display:flex;justify-content:space-between;gap:12px;font:500 11px/1.4 var(--font);letter-spacing:.14em;text-transform:uppercase;color:#FFFFFFB3}
 .hero-card-head span:first-child{color:var(--ivory)}
 .hero-card-request{font-size:19px;line-height:1.3;letter-spacing:-.01em;margin:14px 0 16px;color:#fff}
