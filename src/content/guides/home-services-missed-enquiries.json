@@ -1,0 +1,116 @@
+{
+  "slug": "home-services-missed-enquiries",
+  "sector": "home-services",
+  "kind": "Guide",
+  "topic": "Home Services",
+  "title": "How do home-service companies stop missing customer enquiries?",
+  "shortTitle": "Missed customer enquiries",
+  "description": "Home-service companies stop missing customer enquiries by capturing every call and message in one place, collecting the job details the first time, and tracking each enquiry until it has a booked visit or a quote request with the estimator.",
+  "published": "2026-10-28",
+  "updated": "2026-11-11",
+  "summary": {
+    "question": "How do home-service companies stop missing customer enquiries?",
+    "answer": "Home-service companies stop missing customer enquiries by capturing every call and message in one place, collecting the job details the first time, and tracking each enquiry until it has a booked visit or a quote request with the estimator. Enquiries are most often missed while the crew is on a job and nobody is free to answer, take details or call back.",
+    "takeaways": [
+      "Capture every enquiry in one place, including calls that came in while the team was busy.",
+      "Collect the trade, address, problem and preferred timing in the first contact.",
+      "Check the service area and the schedule before proposing a visit.",
+      "Track each enquiry until it has a booked visit or a quote request.",
+      "Escalate urgent safety issues straight away under your emergency procedure."
+    ]
+  },
+  "scope": {
+    "covers": "Plumbing, HVAC, electrical and roofing enquiries: where they get missed, what details to collect, and how to move each one to a booked visit or quote request.",
+    "excludes": "Diagnosis, safety advice, repair instructions, binding quotes, discounts, dispatch commitments and live emergency response.",
+    "instead": "Those go to your dispatcher, estimator or duty contact. Urgent issues follow your business emergency procedure."
+  },
+  "sections": [
+    {
+      "heading": "Why do enquiries get missed?",
+      "paragraphs": [
+        "Most home-service teams are busy and on the move. The people who could answer the phone are often on a roof, under a sink or driving between jobs."
+      ],
+      "list": [
+        "Calls go to voicemail and are not returned the same day.",
+        "Details are taken on scraps of paper, so the estimator has to call the customer again.",
+        "Enquiries from outside the service area take up time before anyone checks.",
+        "A proposed visit time is mistaken for a confirmed one.",
+        "Quote requests wait because nobody owns them."
+      ]
+    },
+    {
+      "heading": "How do you stop it?",
+      "ordered": true,
+      "list": [
+        "Capture every call, message and web form in one shared list, with the time it came in.",
+        "Collect the trade, address, problem and preferred timing the first time, so nobody has to ask again.",
+        "Check the service area and the schedule before proposing a visit.",
+        "Pass quote requests to the estimator with everything they need to price the job.",
+        "Keep the enquiry open until a visit is booked, the quote request is with the estimator, or the customer says no."
+      ]
+    },
+    {
+      "heading": "What should stay with people?",
+      "paragraphs": [
+        "Diagnosis, safety decisions, repair instructions, binding quotes, discounts and dispatch commitments need qualified or authorised staff. Never give a price that has not been approved.",
+        "Urgent issues, such as a burning smell near an electrical panel, follow your emergency procedure straight away. They should never wait in a queue."
+      ]
+    },
+    {
+      "heading": "How do you know it is working?",
+      "paragraphs": [
+        "Count the enquiries that reach a confirmed next step, and track missed enquiries, the time to book a visit or hand over a quote request, and dispatcher effort. Record these before you change anything, so you have something to compare with."
+      ],
+      "links": [
+        {
+          "href": "/guides/staff-minutes-per-resolved-request",
+          "label": "How to measure staff minutes per resolved request"
+        }
+      ]
+    },
+    {
+      "heading": "How does Crewola help?",
+      "paragraphs": [
+        "Crewola for Home Services runs this workflow for home-service companies and their trade teams. It turns each enquiry into a visit request or quote request with the right details, checks your service-area and scheduling rules, and tracks the enquiry until its next step is confirmed. Pricing and dispatch stay with your team."
+      ],
+      "links": [
+        {
+          "href": "/",
+          "label": "See the home-services workflow with sample enquiries"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Why do home-service companies miss enquiries?",
+      "a": "Because the people who could answer are usually out on jobs. Calls go to voicemail, details get lost, and call-backs slip to the next day."
+    },
+    {
+      "q": "What details should we collect from a new enquiry?",
+      "a": "The trade, the address, the problem in the customer’s own words and the preferred timing. With those, the dispatcher or estimator can act without calling back."
+    },
+    {
+      "q": "Can an automatic reply quote a price?",
+      "a": "Not a binding one. Only approved pricing can be shared, and complex jobs, inspections and price exceptions go to your estimator."
+    },
+    {
+      "q": "What about emergencies?",
+      "a": "Escalate them at once under your emergency procedure. An urgent safety issue should never wait in an enquiry queue."
+    }
+  ],
+  "related": [
+    {
+      "href": "/",
+      "label": "Crewola"
+    },
+    {
+      "href": "/guides/approval-rules",
+      "label": "What are approval rules in workflow automation?"
+    },
+    {
+      "href": "/guides/staff-minutes-per-resolved-request",
+      "label": "What is staff minutes per resolved request?"
+    }
+  ]
+}

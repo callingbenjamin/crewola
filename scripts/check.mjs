@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { BLOCKED_ROBOTS, ALLOWED_ROBOTS, SIGNAL } from '../src/crawlers.mjs';
 import { misspellings, providerClaims, retiredTerms } from '../src/brand.mjs';
 import { SITE } from '../src/site.mjs';
-if (!SITE.description.startsWith(SITE.definition.replace(/\.$/, ','))) throw new Error('SITE.definition must be the start of SITE.description');
+if (!SITE.description.startsWith(SITE.definition.slice(0, -1))) throw new Error('SITE.definition must be the start of SITE.description');
 
 const DIST = 'dist';
 const files = [];
@@ -16,7 +16,9 @@ const walk = dir => readdirSync(dir).forEach(f => {
 walk(DIST);
 
 const pages = files.filter(f => f.endsWith('.html'));
+const redirects = JSON.parse(readFileSync('vercel.json', 'utf8')).redirects ?? [];
 const routeFile = route => {
+  route = redirects.find(r => r.source === route)?.destination ?? route;
   if (route === '/') return join(DIST, 'index.html');
   const p = join(DIST, route);
   if (existsSync(p) && statSync(p).isFile()) return p;
@@ -47,7 +49,7 @@ for (const page of pages) {
   // Structured data must parse, and an FAQPage must carry exactly the questions the page shows.
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => m[1]);
   const isNotFound = page.endsWith('404.html');
-  if (!isNotFound && blocks.length !== 1) problems.push(`${page}: expected one JSON-LD block, found ${blocks.length}`);
+  if (blocks.length !== 1) problems.push(`${page}: expected one JSON-LD block, found ${blocks.length}`);
   for (const b of blocks) {
     let data;
     try { data = JSON.parse(b); } catch (e) { problems.push(`${page}: JSON-LD does not parse (${e.message})`); continue; }
@@ -56,6 +58,12 @@ for (const page of pages) {
     const shown = [...html.matchAll(/<details><summary>([^<]*)<\/summary>/g)].map(m => m[1].replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&quot;/g, '"'));
     if (shown.length && !faq) problems.push(`${page}: shows an FAQ but has no FAQPage markup`);
     if (faq && JSON.stringify(faq.mainEntity.map(q => q.name)) !== JSON.stringify(shown)) problems.push(`${page}: FAQPage questions differ from the visible FAQ`);
+    if (faq) {
+      const clean = t => t.replace(/<[^>]+>/g, '').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+      const answers = [...html.matchAll(/<details><summary>[^<]*<\/summary><p>([\s\S]*?)<\/p><\/details>/g)].map(m => clean(m[1]));
+      if (JSON.stringify(faq.mainEntity.map(q => clean(q.acceptedAnswer.text))) !== JSON.stringify(answers)) problems.push(`${page}: FAQPage answers differ from visible answers`);
+    }
+
   }
   // The meta description is the page's one-sentence definition, so it must also be visible on the page, word for word.
   const decode = t => t.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
@@ -105,7 +113,7 @@ if (existsSync(join(DIST, 'robots.txt'))) {
 if (existsSync(join(DIST, 'llms.txt')) && !readFileSync(join(DIST, 'llms.txt'), 'utf8').includes('\n## AI training\n')) problems.push('llms.txt: missing the "AI training" policy section');
 if (existsSync(join(DIST, 'llms.txt')) && !readFileSync(join(DIST, 'llms.txt'), 'utf8').includes('\n## For AI assistants\n')) problems.push('llms.txt: missing the "For AI assistants" section');
 const emoji = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F2FF}\u{FE0F}]/u;
-for (const f of files.filter(f => /\.(html|css|js|xml|txt)$/.test(f) && !f.endsWith('OFL.txt'))) {
+for (const f of files.filter(f => /\.(html|css|js|xml|txt|md)$/.test(f) && !f.endsWith('OFL.txt'))) {
   if (emoji.test(readFileSync(f, 'utf8'))) problems.push(`${f}: contains an emoji`);
 }
 for (const f of files.filter(f => /\.(css|js|xml|txt)$/.test(f) && !f.endsWith('OFL.txt'))) {
@@ -115,7 +123,7 @@ for (const f of files.filter(f => /\.(css|js|xml|txt)$/.test(f) && !f.endsWith('
 }
 // Footage credits live in CREDITS.md only: no built page or text file names the stock library or says 'stock footage'.
 for (const f of files.filter(f => /\.(html|css|js|json|xml|txt|webmanifest)$/.test(f) && !f.endsWith('OFL.txt'))) {
-  if (/pexels|stock footage/i.test(readFileSync(f, 'utf8'))) problems.push(`${f}: footage credit belongs in CREDITS.md, not on the site`);
+  if (/pexels|higgsfield|stock footage/i.test(readFileSync(f, 'utf8'))) problems.push(`${f}: footage credit belongs in CREDITS.md, not on the site`);
 }
 // Films have no controls: no button, role=button, link, field or tabindex anywhere inside a film.
 for (const f of files.filter(f => f.endsWith('.html'))) {
@@ -125,57 +133,17 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
   }
   if (/film-(pause|replay|ctl)|flow-ctl/.test(html)) problems.push(`${f}: leftover film control markup`);
 }
-// Hero video has no controls: the background video is muted, loops and plays inline, with no controls attribute and
-// nothing focusable in the hero media or the hero foot; no trace of the old Pause/Play button is left anywhere.
-for (const f of files.filter(f => /\.(html|css|js)$/.test(f))) {
-  const text = readFileSync(f, 'utf8');
-  if (/video-control|video-toggle|(Pause|Play) video/.test(text)) problems.push(`${f}: leftover hero video control`);
-  if (!f.endsWith('.html')) continue;
-  const media = text.match(/<div class="hero-media"[\s\S]*?<\/div>/)?.[0];
-  const foot = text.match(/<div class="hero-foot">[\s\S]*?<\/div>/)?.[0];
-  for (const part of [media, foot]) if (part && /<(button|a|input|select|textarea|summary)\b|role="button"|tabindex=/.test(part)) problems.push(`${f}: the hero has a control or focusable element`);
-  const video = media?.match(/<video\b[^>]*>/)?.[0];
-  if (video && (!/ muted\b/.test(video) || !/ loop\b/.test(video) || !/ playsinline\b/.test(video) || /\bcontrols\b/.test(video))) problems.push(`${f}: the hero video must be muted, loop, playsinline and have no controls`);
+// The package's background film has one accessible pause control; native controls stay off.
+{
+  const html = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const video = html.match(/<video id="hero-video"[^>]*>/)?.[0] ?? '';
+  if (!/ muted\b/.test(video) || !/ loop\b/.test(video) || !/ playsinline\b/.test(video) || / controls\b/.test(video)) problems.push('index.html: invalid background video attributes');
+  if (!html.includes('id="video-toggle">Pause video</button>')) problems.push('index.html: missing package video accessibility control');
 }
-// Retired terms: no file name or text file in the built site may mention dental or a pilot.
+// Retired terms: no file name or text file in the built site may mention retired trade or a retired offer.
 for (const f of files) {
   for (const w of retiredTerms(f)) problems.push(`${f}: file name mentions a retired term ("${w}")`);
-  if (/\.(html|css|js|mjs|json|xml|txt|md|svg|webmanifest)$/.test(f)) for (const w of new Set(retiredTerms(readFileSync(f, 'utf8')))) problems.push(`${f}: mentions a retired term ("${w}"); there is no dental service and no pilot`);
-}
-
-// Request films: every card (the hero, each scene and the workflow) is a film of 4 to 6 shots that opens on the
-// customer's message, has a customer step, and whose summary and closing line count each step once, by who does
-// it, adding up to the steps on that card. The llms files' summaries must add up too.
-{
-  const text = h => h.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').trim();
-  const sums = (line, count) => {
-    const m = /^(\d+) steps: ([^·]+?)(?: · .+)?\.?$/.exec(line || '');
-    if (!m) return false;
-    const parts = m[2].split(', ').map(p => /^(\d+) by \S/.exec(p));
-    if (parts.some(p => !p)) return false;
-    const total = parts.reduce((t, p) => t + Number(p[1]), 0);
-    return total === Number(m[1]) && (count === undefined || total === count);
-  };
-  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  const starts = [...home.matchAll(/<div class="film(?: film-compact)?" /g)].map(m => m.index);
-  if (starts.length < 5) problems.push(`index.html: expected the hero, workflow and three scenario films (found ${starts.length})`);
-  starts.forEach((start, i) => {
-    const chunk = home.slice(start, home.indexOf('</ol></div>\n<div class="film-foot">', start));
-    const shots = chunk.split(/<li class="shot k\d/).slice(1);
-    if (shots.length < 4 || shots.length > 6) problems.push(`index.html: film ${i + 1} has ${shots.length} shots (4 to 6 expected)`);
-    if (!/class="film-step lane-customer/.test(shots[0] || '') || !/class="fb fb-customer/.test(shots[0] || '')) problems.push(`index.html: film ${i + 1} does not open on the customer's message`);
-    if (shots.some(sh => !/class="shot-title"/.test(sh))) problems.push(`index.html: film ${i + 1} has a shot without a title line`);
-    const count = (chunk.match(/class="film-step /g) || []).length;
-    const rest = home.slice(start, home.indexOf('</div>\n</div>', home.indexOf('<div class="film-foot">', start)));
-    for (const cls of ['film-summary', 'film-end']) {
-      const m = new RegExp(`<p class="${cls}[^"]*">([\\s\\S]*?)<\\/p>`).exec(rest);
-      if (!m || !sums(text(m[1]), count)) problems.push(`index.html: film ${i + 1} ${cls} does not add up to ${count} steps (${m ? text(m[1]) : 'missing'})`);
-    }
-  });
-  for (const f of ['llms.txt', 'llms-full.txt']) {
-    const body = readFileSync(join(DIST, f), 'utf8');
-    for (const m of body.matchAll(/(\d+ steps: [^.;)\n]+)/g)) if (!sums(m[1])) problems.push(`${f}: summary does not add up (${m[1]})`);
-  }
+  if (/\.(html|css|js|mjs|json|xml|txt|md|svg|webmanifest)$/.test(f)) for (const w of new Set(retiredTerms(readFileSync(f, 'utf8')))) problems.push(`${f}: mentions a retired term ("${w}"); there is no retired trade service and no retired offer`);
 }
 
 // Search, answer and share readiness: descriptions, twitter:image, the deferred script, Markdown copies, IndexNow.
@@ -219,6 +187,23 @@ for (const f of files) {
   if (!existsSync(`.${INDEXNOW_PATH}.js`)) problems.push(`middleware.js INDEXNOW_PATH ${INDEXNOW_PATH} has no function file`);
 }
 
+for (const f of pages) {
+  const html = readFileSync(f, 'utf8');
+  if (/ style=|<style\b|<script(?![^>]*type="application\/(?:ld\+)?json")(?![^>]*src=)/.test(html)) problems.push(`${f}: inline executable script or style violates CSP`);
+  for (const title of [...html.matchAll(/<(?:title)>(.*?)<\/title>|<meta (?:property="og:title"|name="twitter:title") content="([^"]*)"/g)]) if (!(title[1] ?? title[2]).endsWith(' | Crewola by Actuathron')) problems.push(`${f}: incorrect title brand`);
+}
+const sourceFiles = [];
+const scanSource = dir => readdirSync(dir).forEach(name => { const path = join(dir, name); statSync(path).isDirectory() ? scanSource(path) : sourceFiles.push(path); });
+scanSource('src');
+for (const f of sourceFiles) if (retiredTerms(readFileSync(f, 'utf8')).length) problems.push(`${f}: retired content in source`);
+const excludedNames = /Sarah Chen|Elena Rodriguez|\bMarcus\b|\bPriya\b|Alex Johnson/i;
+for (const f of [...sourceFiles, ...files.filter(f => /\.(html|md|txt|js|css|xml|json)$/.test(f) && !f.endsWith('OFL.txt'))]) {
+  const text = readFileSync(f, 'utf8');
+  if (excludedNames.test(text)) problems.push(`${f}: excluded example name`);
+}
+for (const r of redirects) {
+  if (!r.permanent || redirects.some(next => next.source === r.destination) || !routeFile(r.destination)) problems.push(`vercel.json: invalid or chained redirect ${r.source}`);
+}
 if (problems.length) {
   console.error(problems.join('\n'));
   process.exit(1);

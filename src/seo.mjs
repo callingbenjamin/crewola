@@ -74,7 +74,7 @@ export const breadcrumbs = (path, crumbs) => ({
 export const service = d => ({
   '@type': 'Service',
   '@id': serviceId(),
-  name: SITE.name,
+  name: `${SITE.name} for ${d.name}`,
   serviceType: 'Managed workflow service',
   description: d.description,
   disambiguatingDescription: `Covers: ${d.scope.covers} Does not cover: ${d.scope.excludes}`,

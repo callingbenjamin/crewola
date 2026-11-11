@@ -1,16 +1,12 @@
 'use strict';
 // Shared behaviour for every Crewola page. Each block only runs when its markup is present.
 const $ = id => document.getElementById(id);
+const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-// Header: compact bar once the page scrolls. Two thresholds, so a page resting near the line never flips it back
-// and forth.
+// Header: solid bar once the page scrolls.
 const header = document.querySelector('.top');
 if (header) {
-  const updateHeader = () => {
-    const on = header.classList.contains('scrolled');
-    if (!on && window.scrollY > 90) header.classList.add('scrolled');
-    else if (on && window.scrollY < 40) header.classList.remove('scrolled');
-  };
+  const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 40);
   window.addEventListener('scroll', updateHeader, { passive: true });
   // No check at start-up: reading the scroll position then forces the layout that follows the web font swap into
   // one long script task. A page opened part-way down (an anchor link or a reload) fires a scroll event anyway.
@@ -18,53 +14,78 @@ if (header) {
 document.querySelectorAll('.mobile nav a').forEach(a =>
   a.addEventListener('click', () => document.querySelector('.mobile').removeAttribute('open')));
 
-const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+// Header Resources menu: they open on hover and on keyboard focus through CSS; a click or tap toggles
+// them too, and Escape or a click elsewhere closes them.
+const menus = [...document.querySelectorAll('.menu')];
+const closeMenus = except => menus.forEach(m => {
+  if (m === except) return;
+  m.classList.remove('open');
+  m.querySelector('.menu-btn').setAttribute('aria-expanded', 'false');
+});
+menus.forEach(m => {
+  const btn = m.querySelector('.menu-btn');
+  const set = open => { m.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', () => { closeMenus(m); set(!m.classList.contains('open')); });
+  m.addEventListener('mouseenter', () => btn.setAttribute('aria-expanded', 'true'));
+  m.addEventListener('mouseleave', () => { if (!m.classList.contains('open')) btn.setAttribute('aria-expanded', 'false'); });
+  m.addEventListener('keydown', e => { if (e.key === 'Escape') { set(false); btn.focus(); btn.blur(); } });
+});
+if (menus.length) document.addEventListener('click', e => { if (!e.target.closest('.menu')) closeMenus(); });
+
+// Reveal on scroll: blocks below the hero rise into view once. Siblings follow each other by a beat.
+// Skipped entirely with reduced motion, so nothing is ever hidden for those visitors.
+const REVEAL = '.section-head, .center-head, .split > *, .answer-label, .answer-main, .lines .wrap > *, .acc, .news-head, .news-card, .steps, .step, .example-note, .measure-copy > *, .boundary, .start-panel, .faq-head, .faq-grid > .faq-list, .scn-side, .scn-body, .statement p, .cta .wrap > *, .guide-group, .doc-cta';
+if (!motion.matches && 'IntersectionObserver' in window) {
+  const els = new Set(document.querySelectorAll(REVEAL));
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    io.unobserve(e.target);
+  }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+  els.forEach(el => {
+    const turn = [...el.parentElement.children].filter(c => els.has(c)).indexOf(el);
+    if (turn > 0) el.classList.add(`rv-delay-${Math.min(turn, 4)}`);
+    el.classList.add('rv');
+    io.observe(el);
+  });
+}
+
 const configEl = $('config');
 const config = configEl ? JSON.parse(configEl.textContent) : null;
 
-// Request films: each card is a short product film of six shots cut together in one fixed frame. The shots and
-// every word are already in the HTML (a storyboard without JavaScript or with reduced motion); styles.css plays
-// them on a loop, end card straight back to the first shot, and this only starts and pauses the CSS animations.
-// There are no controls: a film plays while a quarter of it is on screen, its scenario is the one shown and the
-// tab is visible, and pauses otherwise.
-const films = [...document.querySelectorAll('.film')];
-// Switching scenario restarts that film in place, on the first shot. The first shot is the resting state, so the
-// frame is never empty, and only the shots animate: the card, its frame and its height never change.
-const restart = film => {
-  film.classList.add('is-reset');
-  void film.offsetWidth;
-  film.classList.remove('is-reset');
-};
-const seen = new Set();
-const sync = film => film.classList.toggle('is-playing', seen.has(film) && !document.hidden && !film.closest('.scene:not(.is-active)'));
-const syncAll = () => films.forEach(sync);
-if (films.length) document.addEventListener('visibilitychange', syncAll);
-if (!('IntersectionObserver' in window)) { films.forEach(f => seen.add(f)); syncAll(); }
-else {
-  // Starts once a quarter of the film is on screen and pauses only when it has left the screen entirely, so a film
-  // at the edge of the window never stutters between playing and paused.
-  const io = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.intersectionRatio >= 0.25) seen.add(e.target);
-    else if (!e.isIntersecting) seen.delete(e.target);
-    sync(e.target);
-  }), { threshold: [0, 0.25] });
-  films.forEach(f => io.observe(f));
-}
-
-// Scenario tabs: the scenarios share one place on the page, so switching is a hard cut that moves nothing, and the
-// chosen film plays from its first shot.
-const scenes = [...document.querySelectorAll('.scene')];
-const tabs = [...document.querySelectorAll('.tab')];
-if (scenes.length && tabs.length) {
-  const show = index => {
+// Workflow examples: a local simulation; nothing leaves the page.
+if (config && $('scn-panel')) {
+  let current = 0;
+  const panel = $('scn-panel');
+  const tabs = document.querySelectorAll('.tab');
+  const stage = $('scn-stage');
+  const stageState = $('scn-stage-state');
+  const replay = () => { panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap'); };
+  const show = (index, animate) => {
+    current = index;
+    const s = config.scenes[index];
     tabs.forEach((b, i) => { b.classList.toggle('active', i === index); b.setAttribute('aria-pressed', String(i === index)); });
-    scenes.forEach((s, i) => { s.classList.toggle('is-active', i === index); s.inert = i !== index; });
-    const film = scenes[index].querySelector('.film');
-    if (film) restart(film);
-    syncAll();
+    $('scn-source').textContent = s.source;
+    $('scn-owner').textContent = s.owner;
+    $('scn-request').textContent = s.request;
+    $('scn-rule').textContent = s.rule;
+    $('scn-draft').textContent = s.draft;
+    $('scn-act').textContent = s.action;
+    $('scn-act').disabled = false;
+    stage.classList.remove('done');
+    stageState.textContent = 'Waiting';
+    $('scn-status').textContent = 'Ready for a human decision. This is a local simulation.';
+    if (animate && !motion.matches) replay();
   };
-  scenes.forEach(s => { s.inert = !s.classList.contains('is-active'); });
-  tabs.forEach((b, i) => b.addEventListener('click', () => show(i)));
+  tabs.forEach((b, i) => b.addEventListener('click', () => show(i, true)));
+  $('scn-act').addEventListener('click', () => {
+    $('scn-status').textContent = config.scenes[current].result + ' No live action was taken.';
+    $('scn-act').disabled = true;
+    stage.classList.add('done');
+    stageState.textContent = 'Recorded';
+  });
+  $('scn-reset').addEventListener('click', () => show(current, true));
+  show(0, false);
 }
 
 // Enquiry: prepared in the browser, then sent by the visitor's own email app or saved as a file.
@@ -77,7 +98,7 @@ if (config && form) {
     if (!form.reportValidity()) return;
     const f = new FormData(form);
     const v = k => String(f.get(k) || '').trim();
-    brief = `Crewola enquiry
+    brief = `Crewola — ${config.name} enquiry
 
 ${config.briefOrgLabel}: ${v('organisation')}
 Contact: ${v('name')}
@@ -100,7 +121,7 @@ ${config.briefRecordsLine}`;
     const url = URL.createObjectURL(new Blob([brief], { type: 'text/plain;charset=utf-8' }));
     const a = document.createElement('a');
     a.href = url;
-    a.download = `crewola-enquiry.txt`;
+    a.download = `crewola-${config.key}-enquiry.txt`;
     document.body.append(a);
     a.click();
     a.remove();
@@ -108,53 +129,43 @@ ${config.briefRecordsLine}`;
   });
 }
 
-// Hero video: a muted background loop with no controls. It plays while any of the hero is on screen and the tab is
-// visible, and pauses otherwise. With reduced motion it never plays and the still poster stays (styles.css hides the
-// video). Without JavaScript the poster stays too.
+// Hero video: honours reduced motion and stays under the visitor's control.
 const video = $('hero-video');
-if (video) {
-  let onScreen = true;
-  const sync = async () => {
-    if (motion.matches || document.hidden || !onScreen) { video.pause(); return; }
-    try { await video.play(); } catch {}
+const videoToggle = $('video-toggle');
+let heroVisible = true;
+if (video && videoToggle) {
+  let userPaused = false;
+  const update = () => {
+    // The play/pause symbol is drawn by CSS and not spoken, so the button's name is exactly its visible words.
+    videoToggle.textContent = video.paused ? 'Play video' : 'Pause video';
+    videoToggle.classList.toggle('is-paused', video.paused);
+    video.classList.toggle('is-playing', !video.paused);
   };
+  const start = async () => { if (!heroVisible || document.hidden) return; try { await video.play(); } catch { update(); } };
   video.muted = true;
-  video.addEventListener('play', () => video.classList.add('is-playing'));
-  video.addEventListener('pause', () => video.classList.remove('is-playing'));
-  motion.addEventListener('change', sync);
-  document.addEventListener('visibilitychange', sync);
-  new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }).observe(video.closest('.hero') ?? video);
+  video.addEventListener('play', update);
+  video.addEventListener('pause', update);
+  video.addEventListener('error', () => { videoToggle.hidden = true; });
+  videoToggle.addEventListener('click', () => {
+    if (video.paused) { userPaused = false; start(); } else { userPaused = true; video.pause(); }
+    videoToggle.classList.toggle('by-user', userPaused);
+  });
+  motion.addEventListener('change', () => {
+    if (motion.matches) { video.pause(); videoToggle.hidden = true; }
+    else { videoToggle.hidden = false; if (!userPaused) start(); }
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) video.pause();
+    else if (!motion.matches && !userPaused) start();
+  });
+  if (motion.matches) videoToggle.hidden = true; else start();
 }
 
-// Home hero: slow crossfade through the industry photographs.
-const slides = document.querySelectorAll('.hero-slides img');
-if (slides.length > 1) {
-  let i = 0, timer = null;
-  const label = $('slide-label');
-  // Later slides ship without image URLs (see posterPicture in src/assets.mjs); load one a slide ahead of time.
-  const load = img => {
-    if (!img.dataset.src) return;
-    img.parentElement.querySelectorAll('source[data-srcset]').forEach(s => { s.srcset = s.dataset.srcset; s.removeAttribute('data-srcset'); });
-    img.src = img.dataset.src;
-    img.removeAttribute('data-src');
-  };
-  const step = () => {
-    slides[i].classList.remove('on');
-    i = (i + 1) % slides.length;
-    load(slides[i]);
-    slides[i].classList.add('on');
-    load(slides[(i + 1) % slides.length]);
-    if (label) label.textContent = slides[i].dataset.label;
-  };
-  const run = () => {
-    if (timer || motion.matches || document.hidden) return;
-    timer = setInterval(step, 5000);
-    // Fetch the next photo once the page has finished loading, well before the first crossfade.
-    if (document.readyState === 'complete') load(slides[(i + 1) % slides.length]);
-    else window.addEventListener('load', () => load(slides[(i + 1) % slides.length]), { once: true });
-  };
-  const stop = () => { clearInterval(timer); timer = null; };
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : run()));
-  motion.addEventListener('change', () => (motion.matches ? stop() : run()));
-  run();
+// Pause the hero while it is outside the viewport, preserving the visitor's pause choice.
+if (video && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => {
+    heroVisible = entry.isIntersecting;
+    if (!heroVisible) video.pause();
+    else if (!document.hidden && !motion.matches && !videoToggle?.classList.contains('by-user')) video.play().catch(() => {});
+  }).observe(document.querySelector('.hero'));
 }

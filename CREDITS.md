@@ -1,7 +1,7 @@
-# Credits
+# Media credits
 
-Source clips used for the site's background video. Recorded here only; the site itself does not show a footage credit.
+| Use | Source |
+| --- | --- |
+| Home-services hero still and clip; closing-call stills | Generated with Higgsfield for Actuathron (still and clip, 11 November 2026) https://higgsfield.ai/ |
 
-| Used for | Source clip | Creator |
-|---|---|---|
-| Homepage hero background (`public/media/home-services/hero.mp4` and the poster stills) | https://www.pexels.com/video/modern-indoor-air-conditioner-unit-close-up-31150098/ | LayG Traveller |
+Credits are recorded here and are not displayed on the site.
