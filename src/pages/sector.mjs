@@ -46,7 +46,7 @@ export function sectorPage(d, guides = []) {
   // The names that drift across the workflow section: this industry's workflows, then its example scenarios.
   const names = [...d.form.workflows, ...d.demo.scenes.map(x => x.tab)].map(label => ({ key: d.key, label }));
   const main = `<section class="hero hero-sector" aria-labelledby="headline">
-<div class="hero-media" aria-hidden="true">${posterPicture(d.key, { sizes: HERO_SIZES, attrs: 'fetchpriority="high"' })}<video id="hero-video" muted loop playsinline preload="metadata" tabindex="-1"><source src="${asset(`${media}/hero.mp4`)}" type="video/mp4"></video></div>
+<div class="hero-media" aria-hidden="true">${posterPicture(d.key, { sizes: HERO_SIZES, attrs: 'fetchpriority="high"' })}<video id="hero-video" muted loop playsinline preload="metadata"><source src="${asset(`${media}/hero.mp4`)}" type="video/mp4"></video></div>
 <div class="hero-wash" aria-hidden="true"></div>
 <div class="film-stage"><div class="wrap">
 <figure class="film-card hero-card">
@@ -68,7 +68,6 @@ ${eyebrow(`${SITE.name} · ${d.hero.eyebrow}`)}
 <p class="micro">${esc(d.hero.audience)}. ${esc(d.hero.foot)}<br>Built and run by Actuathron.</p>
 </div>
 </div>
-<div class="hero-foot"><button type="button" class="video-control" id="video-toggle">Pause video</button></div>
 </section>
 <div class="scene"><div class="wrap">
 ${answerBlock({ ...d.summary, link: guide ? { href: `/guides/${guide.slug}`, label: guide.title } : { href: '/guides/staff-minutes-per-resolved-request', label: 'How results are measured' } }, d.scope)}

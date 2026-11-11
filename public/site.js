@@ -129,43 +129,21 @@ ${config.briefRecordsLine}`;
   });
 }
 
-// Hero video: honours reduced motion and stays under the visitor's control.
+// Hero video: a muted background loop with no controls. It plays while any of the hero is on screen and the tab is
+// visible, and pauses otherwise. With reduced motion it never plays and the still poster stays (styles.css hides the
+// video). Without JavaScript the poster stays too.
 const video = $('hero-video');
-const videoToggle = $('video-toggle');
-let heroVisible = true;
-if (video && videoToggle) {
-  let userPaused = false;
-  const update = () => {
-    // The play/pause symbol is drawn by CSS and not spoken, so the button's name is exactly its visible words.
-    videoToggle.textContent = video.paused ? 'Play video' : 'Pause video';
-    videoToggle.classList.toggle('is-paused', video.paused);
-    video.classList.toggle('is-playing', !video.paused);
+if (video) {
+  let onScreen = true;
+  const sync = async () => {
+    if (motion.matches || document.hidden || !onScreen) { video.pause(); return; }
+    try { await video.play(); } catch {}
   };
-  const start = async () => { if (!heroVisible || document.hidden) return; try { await video.play(); } catch { update(); } };
   video.muted = true;
-  video.addEventListener('play', update);
-  video.addEventListener('pause', update);
-  video.addEventListener('error', () => { videoToggle.hidden = true; });
-  videoToggle.addEventListener('click', () => {
-    if (video.paused) { userPaused = false; start(); } else { userPaused = true; video.pause(); }
-    videoToggle.classList.toggle('by-user', userPaused);
-  });
-  motion.addEventListener('change', () => {
-    if (motion.matches) { video.pause(); videoToggle.hidden = true; }
-    else { videoToggle.hidden = false; if (!userPaused) start(); }
-  });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) video.pause();
-    else if (!motion.matches && !userPaused) start();
-  });
-  if (motion.matches) videoToggle.hidden = true; else start();
-}
-
-// Pause the hero while it is outside the viewport, preserving the visitor's pause choice.
-if (video && 'IntersectionObserver' in window) {
-  new IntersectionObserver(([entry]) => {
-    heroVisible = entry.isIntersecting;
-    if (!heroVisible) video.pause();
-    else if (!document.hidden && !motion.matches && !videoToggle?.classList.contains('by-user')) video.play().catch(() => {});
-  }).observe(document.querySelector('.hero'));
+  video.addEventListener('play', () => video.classList.add('is-playing'));
+  video.addEventListener('pause', () => video.classList.remove('is-playing'));
+  motion.addEventListener('change', sync);
+  document.addEventListener('visibilitychange', sync);
+  if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }).observe(video.closest('.hero') ?? video);
+  else sync();
 }
