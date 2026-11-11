@@ -133,12 +133,23 @@ for (const f of files.filter(f => f.endsWith('.html'))) {
   }
   if (/film-(pause|replay|ctl)|flow-ctl/.test(html)) problems.push(`${f}: leftover film control markup`);
 }
-// The package's background film has one accessible pause control; native controls stay off.
+// The hero background film has no control of any kind (Benjamin, Nov 1 2026: no buttons on animations; the video just
+// loops). The hero section may hold links (its calls to action) but no button, form control, tabindex, native video
+// controls or play/pause wording, and neither site.js nor styles.css may carry a hero video control.
 {
   const html = readFileSync(join(DIST, 'index.html'), 'utf8');
-  const video = html.match(/<video id="hero-video"[^>]*>/)?.[0] ?? '';
-  if (!/ muted\b/.test(video) || !/ loop\b/.test(video) || !/ playsinline\b/.test(video) || / controls\b/.test(video)) problems.push('index.html: invalid background video attributes');
-  if (!html.includes('id="video-toggle">Pause video</button>')) problems.push('index.html: missing package video accessibility control');
+  const hero = html.match(/<section class="hero[^"]*"[\s\S]*?<\/section>/)?.[0] ?? '';
+  if (!hero) problems.push('index.html: hero section not found');
+  const video = hero.match(/<video id="hero-video"[^>]*>/)?.[0] ?? '';
+  if (!/ muted\b/.test(video) || !/ loop\b/.test(video) || !/ playsinline\b/.test(video)) problems.push('index.html: hero video must be muted, loop and playsinline');
+  if (/ controls\b/.test(video)) problems.push('index.html: hero video must not have native controls');
+  for (const [re, what] of [[/<(button|input|select|textarea|summary)\b/i, 'a button or form control'], [/\btabindex\s*=/i, 'a tabindex'], [/\b(pause|play)\s+video\b/i, 'play or pause wording'], [/video-(toggle|control)/i, 'a video control id or class']]) {
+    if (re.test(hero)) problems.push(`index.html: the hero must not contain ${what}`);
+  }
+  for (const f of ['site.js', 'styles.css', 'index.md', 'llms-full.txt']) {
+    const text = readFileSync(join(DIST, f), 'utf8');
+    if (/video-(toggle|control)|\b(pause|play)\s+video\b/i.test(text)) problems.push(`${f}: mentions a hero video control`);
+  }
 }
 // Retired terms: no file name or text file in the built site may mention retired trade or a retired offer.
 for (const f of files) {
