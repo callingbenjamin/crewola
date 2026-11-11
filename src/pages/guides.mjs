@@ -3,7 +3,7 @@ import { esc, page, header, footer, faqList, answerBlock, scopeBlock, HOME_IMAGE
 import { graph, webPage, faqPage, breadcrumbs, article } from '../seo.mjs';
 
 const nav = [
-  { href: '/#workflow', label: 'Workflow' },
+  { href: '/#how', label: 'Workflow' },
   { href: '/guides', label: 'Guides' },
   { href: '/#start', label: 'Talk to us', button: true },
 ];
@@ -37,7 +37,7 @@ export const GUIDES_INDEX = {
 
 export function guidesIndexPage(guides) {
   const path = '/guides';
-  const title = `Workflow guides · ${SITE.titleBrand}`;
+  const title = `Workflow guides | ${SITE.titleBrand}`;
   const crumbs = [{ name: SITE.name, path: '/' }, { name: 'Guides', path }];
   const body = `${crumbTrail(crumbs)}
 <div class="eyebrow">Guides</div>
@@ -70,7 +70,7 @@ ${scopeBlock(GUIDES_INDEX.scope)}
 const guideSummary = g => {
   const end = t => (/[?.]$/.test(t) ? t : `${t}.`);
   const full = `${g.kind}: ${end(g.title)}`;
-  return `${SITE.definition} ${full}`.length <= 160 ? full : `${g.kind}: ${g.title.split('?')[0]}?`;
+  return `${SITE.definition} ${full}`.length <= 160 ? full : `${g.kind}: ${end(g.shortTitle)}`;
 };
 
 export function guidePage(g) {
@@ -78,7 +78,7 @@ export function guidePage(g) {
   if (g.sector && g.sector !== SITE.sector) throw new Error(`${g.slug}: sector "${g.sector}" is not ${SITE.sector}`);
   const cta = '/#start';
   // Page part is the short title (titleTag when that is still too long) so the whole title stays near 60 characters.
-  const title = `${g.titleTag || g.shortTitle} · ${SITE.titleBrand}`;
+  const title = `${g.titleTag || g.shortTitle} | ${SITE.titleBrand}`;
   const crumbs = [{ name: SITE.name, path: '/' }, { name: 'Guides', path: '/guides' }, { name: g.shortTitle, path }];
   const updated = g.updated !== g.published ? ` · Updated <time datetime="${g.updated}">${fmtDate(g.updated)}</time>` : '';
   const body = `${crumbTrail(crumbs)}

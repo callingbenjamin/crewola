@@ -1,48 +1,114 @@
 {
   "key": "home-services",
-  "name": "Home service companies",
-  "tagline": "Every service call. A clear next step.",
-  "description": "Crewola is a managed workflow service for home service companies, starting with HVAC, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.",
-  "topic": "Home service enquiry handling",
-  "task": "turning home service enquiries into booked visits and quote requests",
+  "name": "Home Services",
+  "tagline": "Every enquiry. A clearer schedule.",
+  "description": "Crewola for Home Services is a managed workflow service for home-service companies and their trade teams that turns plumbing, HVAC, electrical and roofing enquiries into organised quote requests, appointment proposals and follow-ups, within the rules your team sets.",
+  "topic": "Home-service enquiry handling",
+  "task": "turning enquiries into bookings and quote requests",
   "hero": {
-    "eyebrow": "FROM FIRST CALL TO A BOOKED VISIT",
+    "eyebrow": "LESS CHASING. CLEARER HANDOFFS.",
     "headline": [
-      "Your back office that never clocks out,",
-      "for home service companies."
+      "Every enquiry.",
+      "A clearer schedule."
     ],
-    "intro": "Crewola is a managed workflow service for home service companies, starting with HVAC, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control.",
-    "audience": "For home service companies & their field teams",
-    "foot": "For the crews who keep homes comfortable.",
-    "accent": "never clocks out"
+    "intro": "Crewola for Home Services is a managed workflow service for home-service companies and their trade teams that turns plumbing, HVAC, electrical and roofing enquiries into organised quote requests, appointment proposals and follow-ups, within the rules your team sets.",
+    "audience": "For home-service companies & their trade teams",
+    "request": "Our tap is leaking. Can someone visit tomorrow?",
+    "next": [
+      {
+        "who": "Crewola",
+        "does": "Collects the job details and prepares a scheduling handoff."
+      },
+      {
+        "who": "Your dispatcher",
+        "does": "Confirms the visit."
+      }
+    ],
+    "foot": "For the people who keep homes working."
   },
   "summary": {
-    "question": "What is Crewola?",
-    "answer": "Crewola is a managed workflow service for home service companies, starting with HVAC, that turns service calls, quote requests and follow-ups into booked visits and clear handoffs, with your dispatchers and estimators in control. Every enquiry is captured and moved to a booked visit or a quote request, and pricing and dispatch always need human approval.",
+    "question": "What is Crewola for Home Services?",
+    "answer": "Crewola for Home Services is a managed workflow service for home-service companies and their trade teams that turns plumbing, HVAC, electrical and roofing enquiries into organised quote requests, appointment proposals and follow-ups, within the rules your team sets. Every enquiry is captured and moved to a booking or quote request, and pricing and dispatch need human approval.",
     "takeaways": [
-      "Every enquiry is captured and moved to a booked visit or a quote request.",
+      "Every enquiry is captured and moved to a booking or quote request.",
       "Diagnosis, safety decisions, binding quotes, discounts and dispatch commitments stay with qualified or authorised staff.",
-      "Pricing and dispatch always need human approval.",
+      "Pricing and dispatch need human approval.",
       "Results are measured by enquiries reaching a confirmed next step, compared with how you work today."
     ]
   },
   "scope": {
-    "covers": "Heating, cooling and ventilation enquiries, plus plumbing, electrical and roofing where agreed, turned into visit requests, quote requests and follow-ups, for the teams and enquiry channels you choose.",
+    "covers": "Plumbing, HVAC, electrical and roofing enquiries turned into visit requests, quote requests and follow-ups, for the trade teams and enquiry channels you choose.",
     "excludes": "Diagnosis, safety decisions, repair instructions, binding quotes, discounts, dispatch commitments and live emergency response.",
     "instead": "Those go to your dispatcher, estimator or duty contact. Urgent issues follow your business emergency protocol."
   },
   "statement": [
-    "Your crew has jobs to finish.",
-    "Keep new enquiries, quote requests and dispatch handoffs moving while your technicians are on site."
+    "Your team has jobs to finish.",
+    "Keep new enquiries, quote requests and scheduling handoffs moving while your crew is on site."
   ],
+  "workflow": {
+    "eyebrow": "THE WORK BETWEEN THE WORK",
+    "heading": "The next job starts with a clear brief.",
+    "body": "A call comes in while the crew is busy. Someone needs to collect the details, check the service area and make sure the enquiry reaches the right person.",
+    "steps": [
+      {
+        "title": "Collect the job details",
+        "body": "Capture the requested trade, location, issue and preferred timing from an approved enquiry source."
+      },
+      {
+        "title": "Prepare the handoff",
+        "body": "Check agreed service-area and scheduling rules. Prepare a quote request or appointment proposal."
+      },
+      {
+        "title": "Confirm and follow up",
+        "body": "Keep pricing and dispatch decisions with your team. Track the enquiry until its next step is confirmed."
+      }
+    ]
+  },
+  "demo": {
+    "eyebrow": "EXPLORE A WORKFLOW",
+    "heading": "From enquiry to an agreed next step.",
+    "body": "Explore routine booking, quote preparation and urgent escalation. Each example shows a proposed handoff, using synthetic information.",
+    "scenes": [
+      {
+        "tab": "Visit request",
+        "request": "My outdoor tap is leaking. Could you come tomorrow?",
+        "source": "Sample customer message",
+        "owner": "Dispatcher",
+        "rule": "Check service area and availability. A proposed slot is not a confirmed visit.",
+        "draft": "Collect address and job details, then prepare a visit request for dispatcher approval.",
+        "action": "Confirm next step",
+        "result": "Scheduling handoff prepared. Arrival time and availability remain unconfirmed."
+      },
+      {
+        "tab": "Quote request",
+        "request": "Can you quote for replacing our roof?",
+        "source": "Sample customer message",
+        "owner": "Estimator",
+        "rule": "An estimate requires approved pricing and sufficient scope. Do not invent a binding price.",
+        "draft": "Collect property details and requested work; ask the estimator whether a site inspection is needed.",
+        "action": "Confirm next step",
+        "result": "Estimator handoff prepared. No binding quote or inspection date was promised."
+      },
+      {
+        "tab": "Urgent issue",
+        "request": "There is a burning smell near the electrical panel.",
+        "source": "Sample customer message",
+        "owner": "Duty contact",
+        "rule": "Escalate immediately under the business emergency protocol. Do not give repair instructions or promise availability.",
+        "draft": "Flag urgent human review and display the business-approved emergency guidance.",
+        "action": "Confirm next step",
+        "result": "Urgent escalation illustrated. This demo provides no live emergency response."
+      }
+    ]
+  },
   "card": {
-    "scene": "No cooling"
+    "scene": "Visit request"
   },
   "measure": {
     "metric": "Enquiries reaching a confirmed next step",
-    "metricBody": "Track missed enquiries, time to a booked visit or quote handoff, and dispatcher effort.",
+    "metricBody": "Measure missed enquiries, time to scheduling or quote handoff, and dispatcher effort.",
     "boundary": "Your crew makes the technical calls.",
-    "boundaryBody": "Diagnosis, safety decisions, binding quotes, discounts and dispatch commitments stay with qualified or authorised staff. Pricing and dispatch always need human approval.",
+    "boundaryBody": "Diagnosis, safety decisions, binding quotes, discounts and dispatch commitments stay with qualified or authorised staff.",
     "boundaryLinks": [
       {
         "href": "/guides/approval-rules",
@@ -50,801 +116,45 @@
       },
       {
         "href": "/guides/workflow-exceptions",
-        "label": "How price exceptions and urgent calls are routed"
+        "label": "How discounts and price exceptions are routed"
       }
     ]
   },
   "start": {
     "scope": [
       "Enquiries from the channels you choose",
-      "Visit and quote-request handoffs",
+      "Booking and quote-request handoffs",
       "Human approval for pricing and dispatch",
       "Regular reports on missed enquiries and staff time"
     ]
   },
   "form": {
     "orgLabel": "Company name",
-    "orgPlaceholder": "Your company",
+    "orgPlaceholder": "Your organisation",
     "emailPlaceholder": "you@company.com",
     "workflows": [
-      "Service call intake and scheduling",
+      "Enquiry intake and scheduling",
       "Quote request preparation",
       "Customer follow-up"
     ],
-    "toolsPlaceholder": "Email, phone, field-service or scheduling tools",
-    "volumeLabel": "Approximate enquiries per week",
-    "recordsNote": "Do not enter customer or job records.",
-    "briefOrgLabel": "Company",
-    "briefRecordsLine": "This enquiry contains no customer or job records."
+    "toolsPlaceholder": "Email, scheduling, CRM, or other tools",
+    "volumeLabel": "Approximate requests or files per week",
+    "recordsNote": "Do not enter customer, tenant or transaction records.",
+    "briefOrgLabel": "Organisation",
+    "briefRecordsLine": "This enquiry contains no customer or transaction records."
   },
   "faq": [
     {
       "q": "Which trades can this support?",
-      "a": "HVAC first: heating, cooling and ventilation service calls, maintenance visits and replacement quotes. Plumbing, electrical and roofing enquiries can follow the same workflow. Each runs on your own service-area, scheduling and escalation rules."
+      "a": "Plumbing, HVAC, electrical and roofing are the candidate use cases. Each workflow follows the business’s own service-area, scheduling and escalation rules."
     },
     {
       "q": "Will it produce a binding quote?",
-      "a": "No. Pricing always needs human approval. Only approved pricing can be shared within the agreed workflow; replacements, inspections and price exceptions go to your estimator."
+      "a": "No. Only approved pricing and permitted actions can be included in the agreed workflow; complex scope, inspections and price exceptions go to your estimator."
     },
     {
       "q": "Can customers use this for emergencies?",
-      "a": "Not as an emergency service. Gas smells, carbon monoxide alarms and other urgent issues follow your business emergency protocol: Crewola flags them for your duty contact at once and sends only wording your team approved in advance. It gives no safety or repair instructions."
-    },
-    {
-      "q": "Does it connect to our field-service software?",
-      "a": "Only where that is agreed after an assessment. We look at your current tools, permissions and integration options before agreeing scope, and no connection to a particular product is promised in advance."
+      "a": "No. This marketing page is not an emergency service. A customer-facing deployment needs explicit urgent escalation procedures and business-approved guidance."
     }
-  ],
-  "workflow": {
-    "eyebrow": "THE WORK BETWEEN THE WORK",
-    "heading": "The next job starts with a clear brief.",
-    "intro": "One task, start to finish: turning HVAC enquiries into booked visits, and where your dispatchers decide.",
-    "body": "A homeowner calls while every technician is on a job. Someone has to take the details, check the service area and the schedule, and get the enquiry to the dispatcher. These are the eight steps from the first call to the closed record.",
-    "people": {
-      "customer": "Mark T.",
-      "team": "Rosa, dispatcher"
-    },
-    "titles": [
-      "A homeowner calls in.",
-      "Checked in seconds.",
-      "Your team approves.",
-      "Briefed to dispatch.",
-      "Dispatch books it.",
-      "Closed. Logged."
-    ],
-    "steps": [
-      {
-        "title": "The call comes in",
-        "actor": "customer",
-        "who": "Homeowner",
-        "icon": "inbox",
-        "label": "Request in",
-        "status": "Received",
-        "body": "A homeowner reports a heating or cooling problem through the website form, by phone or by message, on the channels your company chose. Every enquiry joins one shared list, including calls that came in while the crew was on a job.",
-        "does": "Reports a heating or cooling problem by web form, phone or message. It joins one shared list.",
-        "chat": [
-          {
-            "from": "customer",
-            "text": "Our AC is running but blowing warm air. Can someone come out tomorrow?"
-          }
-        ]
-      },
-      {
-        "title": "Crewola reads it",
-        "actor": "agent",
-        "who": "Crewola",
-        "icon": "tag",
-        "label": "Sorted",
-        "status": "Sorted: AC repair visit",
-        "body": "It works out the trade, the type of job and how urgent it is under your rules, and picks out the address, the equipment, the problem in the customer's own words and the preferred time.",
-        "does": "Sorts it by trade, job type and urgency, and picks out the address, equipment, symptom and preferred time.",
-        "chat": [
-          {
-            "from": "agent",
-            "note": true,
-            "text": "Sorted as an AC repair visit. Symptom: warm air. Time: tomorrow. Not urgent."
-          }
-        ]
-      },
-      {
-        "title": "Crewola checks the context",
-        "actor": "agent",
-        "who": "Crewola",
-        "icon": "search",
-        "label": "Checked",
-        "status": "Context checked",
-        "body": "It checks your service area, the scheduling sources you allow and your dispatch rules. Equipment and visit history come from your field-service software only where that connection is agreed after an assessment.",
-        "does": "Checks the service area, schedule and dispatch rules you allow, and job history only where agreed.",
-        "chat": [
-          {
-            "from": "agent",
-            "note": true,
-            "text": "In service area. Two open windows tomorrow. No technician assigned yet."
-          }
-        ]
-      },
-      {
-        "title": "The homeowner hears back",
-        "actor": "agent",
-        "who": "Crewola",
-        "icon": "pen",
-        "label": "Reply drafted",
-        "status": "Reply drafted",
-        "approval": "Your team approves messages to customers before they go out.",
-        "body": "It drafts a reply with the expected response time from your rules. It does not diagnose the fault, quote a price or promise a technician or an arrival time.",
-        "does": "Drafts a reply with the response time from your rules. No diagnosis, price or arrival time.",
-        "chat": [
-          {
-            "from": "agent",
-            "text": "Thanks, Mark. Our dispatcher will confirm a visit window for tomorrow within 2 hours."
-          },
-          {
-            "from": "team",
-            "text": "Approved. Send it."
-          }
-        ]
-      },
-      {
-        "title": "The dispatcher gets a full brief",
-        "actor": "agent",
-        "who": "Crewola",
-        "icon": "handoff",
-        "label": "Handed off",
-        "status": "Handed to dispatcher",
-        "approval": "Dispatchers and estimators decide prices, charges and technician assignments.",
-        "body": "The visit request goes to the dispatcher with everything they need. Prices, call-out charges, discounts and technician assignments are for the dispatcher or the estimator to decide.",
-        "does": "Briefs the dispatcher. Prices, charges, discounts and technician assignments stay with your team.",
-        "chat": [
-          {
-            "from": "agent",
-            "note": true,
-            "text": "Brief to Rosa: AC blowing warm air, tomorrow, Mark's number. Window and charge not set."
-          }
-        ]
-      },
-      {
-        "title": "Nothing is left waiting",
-        "actor": "agent",
-        "who": "Crewola",
-        "icon": "clock",
-        "label": "Chased",
-        "status": "Following up",
-        "body": "The enquiry stays open against its expected time. If it slips, Crewola reminds the owner and then escalates to the person you name, such as the service manager.",
-        "does": "Keeps the enquiry open; reminds the owner if it slips, then escalates to the person you name.",
-        "chat": [
-          {
-            "from": "agent",
-            "note": true,
-            "text": "No visit confirmed after 1 hour. Reminder sent to Rosa."
-          }
-        ]
-      },
-      {
-        "title": "Dispatch books the visit",
-        "actor": "team",
-        "who": "Dispatcher",
-        "icon": "check",
-        "label": "Booked",
-        "status": "Visit booked by dispatch",
-        "approval": "Your team approves the confirmation to the customer before it is sent.",
-        "body": "The dispatcher assigns a technician and books the arrival window; a reply alone does not close an enquiry. Crewola then drafts the confirmation to the customer for your team to approve.",
-        "does": "The dispatcher assigns a technician and books the window; a reply alone does not close an enquiry.",
-        "chat": [
-          {
-            "from": "team",
-            "text": "Booked Ken for tomorrow, 8 to 10 am."
-          },
-          {
-            "from": "agent",
-            "text": "You're booked for tomorrow, 8 to 10 am. Ken will call when he is on the way."
-          }
-        ]
-      },
-      {
-        "title": "Logged and reported",
-        "actor": "agent",
-        "who": "Crewola",
-        "icon": "archive",
-        "label": "Closed",
-        "status": "Closed and logged",
-        "body": "The enquiry is logged with who did what and when, and counted in regular reports on missed enquiries, time to a booked visit or quote handoff, and dispatcher effort.",
-        "does": "Logs who did what and when, and counts the enquiry in your regular reports.",
-        "chat": [
-          {
-            "from": "agent",
-            "note": true,
-            "text": "Logged: visit booked, each approver recorded. Enquiry closed."
-          }
-        ]
-      }
-    ]
-  },
-  "demo": {
-    "eyebrow": "EXPLORE A WORKFLOW",
-    "heading": "From first call to closed and logged.",
-    "body": "Three enquiries end to end: a repair visit, a replacement quote and an urgent no-heat call.",
-    "stages": [
-      "Intake",
-      "Work",
-      "Hand-off",
-      "Close"
-    ],
-    "lanes": {
-      "customer": "Customer",
-      "agent": "Crewola agent",
-      "team": "Your team"
-    },
-    "scenes": [
-      {
-        "tab": "No cooling",
-        "source": "Website booking form",
-        "owner": "Dispatcher",
-        "request": "Our AC stopped cooling this afternoon. Can someone come tomorrow?",
-        "rule": "Check the service area and the schedule. Only a dispatcher confirms a visit, a technician or a charge.",
-        "people": {
-          "customer": "Erin M.",
-          "team": "Luis, dispatcher"
-        },
-        "titles": [
-          "A homeowner writes in.",
-          "Checked in seconds.",
-          "Your team approves.",
-          "Handed to Luis.",
-          "Dispatch books it.",
-          "Closed. Logged."
-        ],
-        "steps": [
-          {
-            "actor": "customer",
-            "who": "Homeowner",
-            "does": "Sends the request through the website booking form, with an address and a phone number.",
-            "status": "Received",
-            "short": "Request arrives from the booking form.",
-            "phase": 1,
-            "label": "Request in",
-            "icon": "inbox",
-            "stage": 1,
-            "chat": [
-              {
-                "from": "customer",
-                "text": "Our AC stopped cooling this afternoon. Can someone come tomorrow? Erin, 555-0168."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Sorts it as an AC repair visit and pulls out the symptom, the preferred time, the address and the contact details.",
-            "status": "Sorted: AC repair",
-            "short": "Sorts it as a repair visit and pulls out the details.",
-            "phase": 1,
-            "label": "Sorted",
-            "icon": "tag",
-            "stage": 1,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Sorted as an AC repair visit. Symptom: not cooling. Time: tomorrow."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Checks the address against your service area, the scheduling sources you allow, earlier visits where access is agreed, and your dispatch rules.",
-            "status": "Context checked",
-            "short": "Checks the service area, schedule and dispatch rules you allow.",
-            "phase": 1,
-            "label": "Checked",
-            "icon": "search",
-            "stage": 2,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "In service area. Open windows tomorrow morning. No technician assigned yet."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Drafts a reply: the request is received and a dispatcher will confirm a visit window within the response time you set. It gives no diagnosis and no price.",
-            "status": "Reply drafted",
-            "short": "Drafts a reply with the expected response time.",
-            "phase": 2,
-            "label": "Reply drafted",
-            "icon": "pen",
-            "stage": 2,
-            "approval": "Your team reviews the reply before it is sent.",
-            "chat": [
-              {
-                "from": "agent",
-                "text": "Thanks, Erin. Our dispatcher will confirm a visit window for tomorrow within 2 hours."
-              },
-              {
-                "from": "team",
-                "text": "Approved. Send it."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Hands the enquiry to the dispatcher with a complete brief: symptom, address, preferred time, contact details and what is still unconfirmed.",
-            "status": "Handed to dispatcher",
-            "short": "Hands it to the dispatcher with a complete brief.",
-            "phase": 2,
-            "label": "Handed off",
-            "icon": "handoff",
-            "stage": 3,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Brief to Luis: AC not cooling, tomorrow, Erin's number. Window and charge unconfirmed."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Tracks the handoff. If no visit is confirmed within the agreed time, it reminds the dispatcher, then escalates to the service manager.",
-            "status": "Following up",
-            "short": "Follows up, and escalates if it stalls.",
-            "phase": 2,
-            "label": "Chased",
-            "icon": "clock",
-            "stage": 3,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "No visit confirmed after 1 hour. Reminder sent to Luis."
-              }
-            ]
-          },
-          {
-            "actor": "team",
-            "who": "Dispatcher",
-            "does": "Assigns a technician and books an arrival window. Any call-out charge is set by the dispatcher under your own pricing.",
-            "status": "Visit booked by dispatch",
-            "short": "Your dispatcher assigns a technician and books the window.",
-            "phase": 3,
-            "label": "Booked",
-            "icon": "check",
-            "stage": 4,
-            "approval": "Only dispatch assigns technicians and confirms visits.",
-            "chat": [
-              {
-                "from": "team",
-                "text": "Booked Ken for tomorrow, 8 to 10 am."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Drafts the confirmation for the homeowner with the booked window, for the dispatcher to approve.",
-            "status": "Customer updated",
-            "short": "Drafts the confirmation; the dispatcher approves it.",
-            "phase": 3,
-            "label": "Customer told",
-            "icon": "send",
-            "stage": 4,
-            "approval": "The dispatcher approves the confirmation before it is sent.",
-            "chat": [
-              {
-                "from": "agent",
-                "text": "You're booked for tomorrow, 8 to 10 am. Ken will call when he is on the way."
-              },
-              {
-                "from": "team",
-                "text": "Approved. Send it."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Records the booking and who approved each step on the enquiry record, and counts it in the regular report on missed enquiries and dispatcher time.",
-            "status": "Closed and logged",
-            "short": "Records the outcome and closes the enquiry.",
-            "phase": 3,
-            "label": "Closed",
-            "icon": "archive",
-            "stage": 4,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Logged: visit booked, each approver recorded. Enquiry closed."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Replacement quote",
-        "source": "Email to the office",
-        "owner": "Estimator",
-        "request": "Our furnace is 20 years old. What would a new furnace and AC cost us?",
-        "rule": "Only the estimator prices work, usually after a home visit. Drafts include no figures or ranges.",
-        "people": {
-          "customer": "Priya S.",
-          "team": "Dana, estimator"
-        },
-        "titles": [
-          "A quote request lands.",
-          "Sorted and checked.",
-          "No price promised.",
-          "Briefed to Dana.",
-          "Dana books a visit.",
-          "Closed. Logged."
-        ],
-        "steps": [
-          {
-            "actor": "customer",
-            "who": "Homeowner",
-            "does": "Emails the office asking what a furnace and AC replacement would cost.",
-            "status": "Received",
-            "short": "Request arrives by email.",
-            "phase": 1,
-            "label": "Request in",
-            "icon": "inbox",
-            "stage": 1,
-            "chat": [
-              {
-                "from": "customer",
-                "text": "Our furnace is 20 years old. What would a new furnace and AC cost us?"
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Sorts it as a replacement quote request and pulls out the equipment, its age, the property and the contact details.",
-            "status": "Sorted: quote request",
-            "short": "Sorts it as a quote request.",
-            "phase": 1,
-            "label": "Sorted",
-            "icon": "tag",
-            "stage": 1,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Sorted as a replacement quote. Furnace about 20 years old. AC included."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Checks your service area and your approval rules: only the estimator prices work, and replacements need a home visit first.",
-            "status": "Rule matched: estimator prices",
-            "short": "Matches the rule: the estimator prices it.",
-            "phase": 1,
-            "label": "Rule matched",
-            "icon": "rule",
-            "stage": 2,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Rule matched: replacement pricing is for the estimator, after a home visit."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Drafts a reply that gives no price or range and says the estimator will call to arrange a home visit within the agreed time.",
-            "status": "Reply drafted",
-            "short": "Drafts a reply that quotes no price.",
-            "phase": 2,
-            "label": "Holding reply",
-            "icon": "pen",
-            "stage": 2,
-            "approval": "Your team reviews the reply before it is sent.",
-            "chat": [
-              {
-                "from": "agent",
-                "text": "Thanks, Priya. Our estimator will call by tomorrow to arrange a visit. No price is set yet."
-              },
-              {
-                "from": "team",
-                "text": "Approved. Send it."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Hands the request to the estimator with a complete brief and makes no commitment of its own.",
-            "status": "Handed to estimator",
-            "short": "Hands it to the estimator with a complete brief.",
-            "phase": 2,
-            "label": "Handed off",
-            "icon": "handoff",
-            "stage": 3,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Brief to Dana: furnace about 20 years old, AC too, Priya's number. Nothing quoted."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Tracks the request. If no visit is arranged by the agreed time, it reminds the estimator, then escalates to the next person in your approval rules.",
-            "status": "Waiting for estimator",
-            "short": "Follows up until a visit is arranged.",
-            "phase": 2,
-            "label": "Chased",
-            "icon": "clock",
-            "stage": 3,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "No visit arranged yet. Reminder sent to Dana; the call is due tomorrow."
-              }
-            ]
-          },
-          {
-            "actor": "team",
-            "who": "Estimator",
-            "does": "Calls the homeowner and books a home visit to size the system. Any quote comes from the estimator after the visit.",
-            "status": "Visit booked by estimator",
-            "short": "Your estimator books the home visit.",
-            "phase": 3,
-            "label": "Visit booked",
-            "icon": "check",
-            "stage": 4,
-            "approval": "Only the estimator prices work and sets visit times.",
-            "chat": [
-              {
-                "from": "team",
-                "text": "Booked a home visit Thursday at 3 pm. The quote follows after I size the system."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Drafts the confirmation with the agreed visit time, for the estimator to approve.",
-            "status": "Customer updated",
-            "short": "Drafts the confirmation; the estimator approves it.",
-            "phase": 3,
-            "label": "Customer told",
-            "icon": "send",
-            "stage": 4,
-            "approval": "The estimator approves the confirmation before it is sent.",
-            "chat": [
-              {
-                "from": "agent",
-                "text": "Hi Priya, Dana will visit Thursday at 3 pm to size the system. The quote follows after."
-              },
-              {
-                "from": "team",
-                "text": "Approved. Send it."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Records the visit, the approver and each message on the enquiry record as a quote request, and counts it in the regular report.",
-            "status": "Closed and logged",
-            "short": "Records the handoff and closes the enquiry.",
-            "phase": 3,
-            "label": "Closed",
-            "icon": "archive",
-            "stage": 4,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Logged: quote visit booked, each approver recorded. Enquiry closed."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "No heat tonight",
-        "source": "After-hours phone message",
-        "owner": "Duty contact",
-        "request": "Our furnace quit and it's freezing tonight. We have a newborn. Please call back.",
-        "rule": "Escalate at once under your emergency protocol. Send only pre-approved wording; no repair or safety instructions.",
-        "people": {
-          "customer": "Sam K.",
-          "team": "Joel, duty contact"
-        },
-        "titles": [
-          "An urgent call lands.",
-          "Flagged as urgent.",
-          "Approved wording only.",
-          "Escalated to Joel.",
-          "Joel takes it.",
-          "Closed. Logged."
-        ],
-        "steps": [
-          {
-            "actor": "customer",
-            "who": "Homeowner",
-            "does": "Leaves an after-hours phone message: the furnace has stopped on a freezing night, with a newborn at home.",
-            "status": "Received",
-            "short": "Request arrives as an after-hours message.",
-            "phase": 1,
-            "label": "Request in",
-            "icon": "inbox",
-            "stage": 1,
-            "chat": [
-              {
-                "from": "customer",
-                "text": "Our furnace quit and it's freezing tonight. We have a newborn. Please call back."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Sorts it as urgent under your rules (no heat, a vulnerable person at home) and pulls out the address and callback number.",
-            "status": "Sorted: urgent",
-            "short": "Flags it as urgent.",
-            "phase": 1,
-            "label": "Flagged urgent",
-            "icon": "tag",
-            "stage": 1,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Flagged urgent: no heat on a freezing night, newborn at home. Callback number noted."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Matches your emergency protocol and alerts the duty contact straight away. Crewola gives no repair or safety instructions.",
-            "status": "Rule matched: escalate now",
-            "short": "Matches the rule and alerts the duty contact.",
-            "phase": 1,
-            "label": "Rule matched",
-            "icon": "rule",
-            "stage": 2,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Rule matched: urgent no-heat call. Duty contact alerted now. No repair advice."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Prepares a reply using only the wording your team approved in advance for urgent calls. It promises no arrival time.",
-            "status": "Approved wording sent",
-            "short": "Sends only your pre-approved urgent wording.",
-            "phase": 2,
-            "label": "Holding reply",
-            "icon": "pen",
-            "stage": 2,
-            "approval": "The duty contact approves the reply before it is sent.",
-            "chat": [
-              {
-                "from": "agent",
-                "text": "Thanks, Sam. Our on-call contact has been alerted and will call you back."
-              },
-              {
-                "from": "team",
-                "text": "Approved. Send it."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Sends the duty contact the full brief: address, callback number, what the caller said and the time it came in.",
-            "status": "Escalated to duty contact",
-            "short": "Escalates with a complete brief.",
-            "phase": 2,
-            "label": "Escalated",
-            "icon": "handoff",
-            "stage": 3,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Brief to Joel: no heat, newborn at home, Sam's number, called at 9:42 pm."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Tracks the escalation. If the duty contact has not called back within the time in your protocol, it escalates to the backup contact.",
-            "status": "Escalation tracked",
-            "short": "Escalates to the backup if it stalls.",
-            "phase": 2,
-            "label": "Chased",
-            "icon": "clock",
-            "stage": 3,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "No callback logged after 10 minutes. Reminder sent to Joel; backup contact on standby."
-              }
-            ]
-          },
-          {
-            "actor": "team",
-            "who": "Duty contact",
-            "does": "Calls the homeowner, decides the response and dispatches the on-call technician. Safety and dispatch decisions are theirs alone.",
-            "status": "Dispatched by duty contact",
-            "short": "Your duty contact calls back and dispatches.",
-            "phase": 3,
-            "label": "Dispatched",
-            "icon": "check",
-            "stage": 4,
-            "approval": "Only the duty contact decides dispatch and safety.",
-            "chat": [
-              {
-                "from": "team",
-                "text": "Called Sam back. On-call tech heading out, arriving within the hour."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Drafts a written follow-up confirming what the duty contact agreed on the call, for the duty contact to approve.",
-            "status": "Customer updated",
-            "short": "Drafts the follow-up; the duty contact approves it.",
-            "phase": 3,
-            "label": "Customer told",
-            "icon": "send",
-            "stage": 4,
-            "approval": "The duty contact approves the update before it is sent.",
-            "chat": [
-              {
-                "from": "agent",
-                "text": "Hi Sam, as Joel said on the phone, a technician is on the way and arrives within the hour."
-              },
-              {
-                "from": "team",
-                "text": "Approved. Send it."
-              }
-            ]
-          },
-          {
-            "actor": "agent",
-            "who": "Crewola",
-            "does": "Records the alert, callback and dispatch times, who acted and every message on the enquiry record as an urgent case, and counts it in the regular report.",
-            "status": "Closed and logged",
-            "short": "Records the escalation and closes it.",
-            "phase": 3,
-            "label": "Closed",
-            "icon": "archive",
-            "stage": 4,
-            "chat": [
-              {
-                "from": "agent",
-                "note": true,
-                "text": "Logged as urgent: alert, callback and dispatch times recorded. Case closed."
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  ]
 }

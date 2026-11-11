@@ -5,7 +5,7 @@ import { SITE, PATHS } from './src/site.mjs';
 import { sectorPage } from './src/pages/sector.mjs';
 import { privacyPage, notFoundPage } from './src/pages/plain.mjs';
 import { guidesIndexPage, guidePage } from './src/pages/guides.mjs';
-import { llmsTxt, llmsFullTxt, homeMarkdown, guidesIndexMarkdown, guideMarkdown, privacyMarkdown } from './src/llms.mjs';
+import { llmsTxt, llmsFullTxt, homeMarkdown, guidesIndexMarkdown, guideMarkdown, privacyMarkdown, notFoundMarkdown } from './src/llms.mjs';
 import { BLOCKED_ROBOTS, ALLOWED_ROBOTS, SIGNAL } from './src/crawlers.mjs';
 
 const OUT = 'dist';
@@ -32,9 +32,10 @@ write('index.md', homeMarkdown(sector));
 write('guides.md', guidesIndexMarkdown(guides));
 for (const g of guides) write(`guides/${g.slug}.md`, guideMarkdown(g));
 write('privacy.md', privacyMarkdown());
+write('404.md', notFoundMarkdown());
 
 // lastmod: SITE.updated for fixed pages, each guide's own updated date for guides.
-const lastmod = { ...SITE.updated, ...Object.fromEntries(guides.map(g => [`/guides/${g.slug}`, g.updated])) };
+const lastmod = { ...SITE.updated, ...Object.fromEntries(guides.map(g => [`/guides/${g.slug}`, SITE.updated['/guides']])) };
 const paths = PATHS;
 for (const p of paths) if (!/^\d{4}-\d{2}-\d{2}$/.test(lastmod[p] ?? '')) throw new Error(`${p}: add its updated date (YYYY-MM-DD) to SITE.updated in src/site.mjs`);
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>

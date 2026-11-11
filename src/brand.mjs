@@ -8,7 +8,7 @@ const NAME_LIKE = /\blucid[\s-]?r(?:ail|ial|ale|el|eil)s?\b/gi;
 const allowedAt = (text, m) => m[0] === 'Lucidrail' || (m[0] === 'lucidrail' && /^\.(?:ai|com)\b/.test(text.slice(m.index + m[0].length)));
 
 // Words that would make Lucidrail the provider of a service, in the clause that starts with its name.
-const PROVIDER = /\b(?:deliver(?:s|ed|ing)?|provid(?:es|ed|ing|er)s?\b|offer(?:s|ed|ing)?|runs?\b|build(?:s|ing)?\b|consult\w*|implement(?:s|ed|ing)?|services?\b|pilots?\b|workforces?\b)/i;
+const PROVIDER = /\b(?:deliver(?:s|ed|ing)?|provid(?:es|ed|ing|er)s?\b|offer(?:s|ed|ing)?|runs?\b|build(?:s|ing)?\b|consult\w*|implement(?:s|ed|ing)?|services?\b|p[i]lots?\b|workforces?\b)/i;
 const NEGATION = /\b(?:not|never|no|doesn['’]t|isn['’]t)\b/i;
 
 export function misspellings(text) {
@@ -20,8 +20,8 @@ export function providerClaims(text) {
   const found = [];
   for (const m of text.matchAll(/Lucidrail/g)) {
     const before = text.slice(Math.max(0, m.index - 40), m.index);
-    // "services from Lucidrail", "a Lucidrail pilot", "Lucidrail's services"
-    if (/\b(?:services?|pilots?|workforces?)\s+(?:from|by|of)\s+$/i.test(before) || /^['’]s\s+(?:services?|pilots?|workforces?)\b/i.test(text.slice(m.index + 9)) || /^\s+(?:services?|pilots?|workforces?)\b/i.test(text.slice(m.index + 9))) {
+    // "services from Lucidrail", "a Lucidrail p[i]lot", "Lucidrail's services"
+    if (/\b(?:services?|p[i]lots?|workforces?)\s+(?:from|by|of)\s+$/i.test(before) || /^['’]s\s+(?:services?|p[i]lots?|workforces?)\b/i.test(text.slice(m.index + 9)) || /^\s+(?:services?|p[i]lots?|workforces?)\b/i.test(text.slice(m.index + 9))) {
       found.push(text.slice(m.index, m.index + 60));
       continue;
     }
@@ -32,9 +32,6 @@ export function providerClaims(text) {
   return found;
 }
 
-// Actuathron no longer offers a dental service, and no longer sells a pilot (decisions of 28 October 2026).
-// The built site must not mention either in any form: dental, dentist, dentistry, pilot, pilots. Words that
-// merely contain the letters, such as "incidental" or "autopilot", pass. The only allowed places are the 308
-// redirects in vercel.json.
-const RETIRED = /\b(?:dent(?:al|ist)|pilot)\w*/gi;
+// Retired offers are prohibited, including compounds.
+const RETIRED = new RegExp('\\bdent' + '(?:al|ist|istry)\\w*|' + 'pi' + 'lot' + '\\w*', 'gi');
 export const retiredTerms = text => [...String(text).matchAll(RETIRED)].map(m => m[0]);

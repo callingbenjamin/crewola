@@ -3,18 +3,18 @@ import { page, header, footer, HOME_IMAGE_ALT } from '../layout.mjs';
 import { graph, webPage, breadcrumbs } from '../seo.mjs';
 
 const nav = [
-  { href: '/#workflow', label: 'Workflow' },
+  { href: '/#how', label: 'Workflow' },
   { href: '/guides', label: 'Guides' },
   { href: '/#start', label: 'Talk to us', button: true },
 ];
 
 function plainPage({ path, title, category, description, summary, current, body, noindex = false, markdown }) {
-  const full = `${title} · ${SITE.titleBrand}`;
+  const full = `${title} | ${SITE.titleBrand}`;
   return page({
     path,
     title: full,
     noindex,
-    jsonLd: noindex ? undefined : graph([
+    jsonLd: graph([
       webPage({ path, title: full, description, updated: SITE.updated[path] }),
       breadcrumbs(path, [{ name: SITE.name, path: '/' }, { name: title, path }]),
     ]),
@@ -35,7 +35,7 @@ const PRIVACY_DEFINITION = `This privacy notice explains how the ${SITE.name} we
 export const PRIVACY_BODY = `<div class="eyebrow">Privacy</div>
 <h1>How this website handles your information.</h1>
 <p class="lead">${PRIVACY_DEFINITION}</p>
-<p>Last updated 31 October 2026.</p>
+<p>Last updated 11 November 2026.</p>
 <h2>What we collect</h2>
 <p>This website does not use cookies, analytics, advertising trackers or third-party scripts. Fonts, images and videos are served from this website.</p>
 <h2>Enquiries</h2>
