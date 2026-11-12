@@ -200,26 +200,21 @@ a:hover>.arr{transform:translate(2px,-2px)}
 .cta .micro{margin:22px 0 0}
 .cta .micro a{text-decoration:underline;text-underline-offset:3px}
 
-/* Footer: the end credits. No rules and no hard edge: the page colour fades into the darkest tone, which is also
-   the colour behind the page, so the bottom of the page reads as one surface. The large logo closes the page,
-   and the copyright sits in the gap above the last two letters of its wordmark ("on"), on the right edge.
-   The percentages are read off the logo (1612 x 334): the small letters start 60.8% down, the tall "h" 45.5% down. */
-.footer{position:relative;overflow:hidden;background:linear-gradient(var(--bg),var(--void) 480px);padding-top:84px}
-.foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);gap:48px;padding-bottom:64px}
+/* Footer: no rules and no hard edge above it: the page colour fades into the darkest tone, which is also the
+   colour behind the page. Brand and tagline on the left, two link columns on the right, then a hairline with the
+   credit on the left and the copyright on the right, in normal flow. */
+.footer{position:relative;overflow:hidden;background:linear-gradient(var(--bg),var(--void) 480px);padding:84px 0 40px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);gap:48px;padding-bottom:56px}
 .foot-brand .brand-logo{height:30px;width:145px}
 .foot-brand p{margin:22px 0 0;color:var(--muted);font-size:14px;max-width:300px}
-.foot-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.foot-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
 .foot-h{font:500 10.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 18px}
 .foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:11px;font-size:14px;color:var(--ink-soft)}
 .foot-col a{transition:color .2s;overflow-wrap:anywhere}
 .foot-col a:hover,.foot-col a[aria-current]{color:var(--ink)}
 .foot-col a[aria-current]{text-decoration:underline;text-decoration-color:var(--signal);text-underline-offset:5px}
-.foot-end{position:relative;margin:8px 0 32px}
-.foot-bottom{position:absolute;right:0;bottom:calc(39.2% + 12px);font:500 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding-top:28px;border-top:1px solid var(--line);font:500 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--muted)}
 .copyright{white-space:nowrap}
-.foot-mark{color:var(--ink);opacity:.07;line-height:0}
-/* The round letters dip just below the tile's bottom edge, so the drawing is allowed to show past its box. */
-.foot-mark .brand-logo{width:100%;height:auto;overflow:visible}
 
 
 /* Industry page hero: label and headline bottom left, definition and buttons bottom right, and the incoming
@@ -624,9 +619,7 @@ select option{background:var(--panel);color:var(--ink)}
   .faq-list summary{grid-template-columns:44px 1fr 24px;font-size:16px;padding:20px 0}
   .faq-list details p{margin-left:44px;font-size:15px}
   .footer{padding-top:60px}
-  .foot-nav{grid-template-columns:1fr 1fr}
-  .foot-nav .foot-col:last-child{grid-column:1/-1}
-  .foot-bottom{bottom:calc(54.5% + 5px);font-size:10px}
+  .foot-bottom{font-size:10px}
   .doc-head{padding:128px 0 52px}
   .doc-head .lead{font-size:17px}
   .crumbs ol{margin-bottom:32px}
@@ -654,10 +647,8 @@ select option{background:var(--panel);color:var(--ink)}
 
 @media print{
   .rv{opacity:1!important;animation:none!important}
-  .top,.hero-media,.lines-media,.go-media,.cta-media,.film-stage,.foot-mark,.marquee{display:none}
+  .top,.hero-media,.lines-media,.go-media,.cta-media,.film-stage,.marquee{display:none}
   .hero-home{position:static;height:auto}
-  .foot-end{margin:0}
-  .foot-bottom{position:static;padding:16px 0}
 }
 
 /* High-contrast mode drops backgrounds: outline the panels so their shapes survive. */
@@ -705,10 +696,8 @@ section.page.guide-body{padding-top:20px}
 .page .guide-list a{display:grid;grid-template-columns:1fr;gap:8px}
 .page .guide-list a>*{grid-column:1}
 .brand-logo{width:132px;height:30px}
-.foot-mark .brand-logo{width:100%;height:auto}
 @media(max-width:760px){section.page{padding:140px 0 70px}.brand-by{margin-bottom:4.75px}.brand-logo{width:114px;height:26px}}
 
-.foot-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
 .page .byline{display:block}
 
 .rv-delay-1{animation-delay:110ms}
