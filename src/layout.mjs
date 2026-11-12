@@ -102,8 +102,8 @@ export function footer({ sectors, current }) {
 <div class="foot-col"><p class="foot-h">Contact</p><ul><li><a href="mailto:${SITE.email}">${SITE.email}</a></li></ul></div>
 </nav>
 </div>
-<div class="foot-end"><div class="foot-mark" aria-hidden="true">${LOGO}</div>
-<div class="foot-bottom"><span class="governance">Built and run by <a href="https://actuathron.com/" rel="noopener">Actuathron</a>.</span><span class="copyright">© ${new Date().getFullYear()} ${SITE.name}</span></div></div>
+<div class="foot-bottom"><span class="governance">Built and run by <a href="https://actuathron.com/" rel="noopener">Actuathron</a>.</span>
+<span class="copyright">© ${new Date().getFullYear()} ${SITE.name}</span></div>
 </div></footer>`;
 }
 
